@@ -1,4 +1,4 @@
-package com.app.server.entity;
+package com.app.server.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Table(name = "\"order\"")
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -29,8 +29,8 @@ public class Order {
     private double totalAmount;
 
     @ManyToOne
-    @JoinColumn(name = "id_user", nullable = false)
-    private User user;
+    @JoinColumn(name = "id_customer", nullable = false)
+    private Customer customer;
 
     @OneToMany(mappedBy = "order")
     private List<OrderLine> orderLineList;

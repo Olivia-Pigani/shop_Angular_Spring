@@ -1,4 +1,4 @@
-package com.app.server.entity;
+package com.app.server.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,8 +14,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "\"user\"")
-public class User {
+@Table(name = "customer")
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class User {
 
     private String firstName;
 
-    private String LastName;
+    private String lastName;
 
     private String email;
 
@@ -37,11 +37,11 @@ public class User {
     @JoinColumn(name = "id_adress", nullable = false)
     private Adress adress;
 
-    @OneToMany(mappedBy = "user",
+    @OneToMany(mappedBy = "customer",
             fetch = FetchType.LAZY)
     private List<Review> reviewList;
 
-    @OneToMany(mappedBy = "user",
+    @OneToMany(mappedBy = "customer",
     fetch = FetchType.LAZY)
     private List<Order> orderList;
 }

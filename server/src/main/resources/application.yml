@@ -8,12 +8,20 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+    # disable comment to load data and comment it again
+    #defer-datasource-initialization: true
+
   datasource:
     url: ${POSTGRES_DB_URL}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
     show-sql: true
+
+  #sql:
+    #init:
+      #mode: always
 
 server:
   port: ${SERVER_PORT}

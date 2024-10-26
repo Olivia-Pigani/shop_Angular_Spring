@@ -1,4 +1,4 @@
-package com.app.server.entity;
+package com.app.server.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,26 +6,28 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Table(name = "orderline")
-public class OrderLine {
+@Table(name = "adress")
+public class Adress {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_order")
-    private Order order;
+    private String street;
 
-    @ManyToOne
-    @JoinColumn(name = "id_product")
-    private Product product;
+    private String houseNumber;
 
-    private double quantity;
+    private String city;
 
+    private String country;
+
+    @OneToMany(mappedBy = "adress")
+    private Set<Customer> customerList;
 }

@@ -1,32 +1,31 @@
-package com.app.server.entity;
+package com.app.server.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "review")
-public class Review {
+@NoArgsConstructor
+@Getter
+@Table(name = "orderline")
+public class OrderLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-
-    private String description;
-
-    private int rating;
+    @ManyToOne
+    @JoinColumn(name = "id_order")
+    private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "id_user", nullable = false)
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "id_product",nullable = false)
+    @JoinColumn(name = "id_product")
     private Product product;
+
+    private double quantity;
+
 }

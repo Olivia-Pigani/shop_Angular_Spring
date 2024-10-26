@@ -1,4 +1,4 @@
-package com.app.server.entity;
+package com.app.server.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,21 +13,16 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Table(name = "adress")
-public class Adress {
+@Table(name = "category")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String street;
+    private String name;
 
-    private String houseNumber;
-
-    private String city;
-
-    private String country;
-
-    @OneToMany(mappedBy = "adress")
-    private Set<User> userList;
+    @OneToMany(mappedBy = "category",
+    fetch = FetchType.LAZY)
+    private Set<Product> productSet;
 }
