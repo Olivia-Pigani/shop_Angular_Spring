@@ -1,6 +1,8 @@
 <div class="container">
 
-<ng-container *ngIf="productList.length > 0" ; else errorPrinter>
+  <h1>{{pageTitle}}</h1>
+
+<ng-container *ngIf="productList.length" ; else errorPrinter>
   <div class="row">
     <app-product-card
       *ngFor="let product of productList"

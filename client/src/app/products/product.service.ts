@@ -13,10 +13,11 @@ export class ProductService {
   private http: HttpClient = inject(HttpClient)
 
   public getAllProducts(): Observable<Product[]>{
-    return this.http.get<Product[]>(this.productsUrl)
-    .pipe(
-      tap(()=>'in http get product')
-    )
+    return this.http.get<Product[]>(this.productsUrl);
+  }
+
+  public getProductById(productId: number):Observable<Product>{
+    return this.http.get<Product>(`${this.productsUrl}/${productId}`);
   }
 
 }

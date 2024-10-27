@@ -18,7 +18,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
 public pageTitle: string = 'All products';
 public errorMessage: string = '';
 public productList: Product[] = [];
-public selectedProductId:number = 0;
 private sub!:Subscription;
 
 private productService: ProductService = inject(ProductService);
@@ -34,5 +33,7 @@ ngOnInit(): void {
 ngOnDestroy(): void {
   this.sub.unsubscribe();
 }
+
+
 
 }
