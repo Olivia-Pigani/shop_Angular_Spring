@@ -1,10 +1,10 @@
-package com.app.server.domain.entity;
+package com.app.server.product.domain.entity;
 
+import com.app.server.domain.entity.Category;
+import com.app.server.domain.entity.OrderLine;
+import com.app.server.domain.entity.Review;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Table(name = "product")
 public class Product {
 

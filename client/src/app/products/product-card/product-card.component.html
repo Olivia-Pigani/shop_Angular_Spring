@@ -1,0 +1,8 @@
+<div class="card my-3" style="width: 18rem">
+    <img src={{product.image}} class="card-img-top" alt="product image" height="250px">
+    <div class="card-body">
+      <h5 class="card-title">{{product.name}}</h5>
+      <p class="card-text">{{product.description | slice:0:25}}...</p>
+      <p class="card-text">{{product.price}} €</p>
+    </div>
+</div>

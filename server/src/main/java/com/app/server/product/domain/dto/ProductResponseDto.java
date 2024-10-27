@@ -1,4 +1,4 @@
-package com.app.server.domain.dto;
+package com.app.server.product.domain.dto;
 
 public record ProductResponseDto(
 
@@ -12,10 +12,6 @@ public record ProductResponseDto(
 
         double availableQuantity,
 
-        double price,
-
-        Long categoryId,
-
-        String categoryName
+        double price
 ) {
 }

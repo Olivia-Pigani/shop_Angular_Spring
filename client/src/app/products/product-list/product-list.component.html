@@ -1,0 +1,17 @@
+<div class="container">
+
+<ng-container *ngIf="productList.length > 0" ; else errorPrinter>
+  <div class="row">
+    <app-product-card
+      *ngFor="let product of productList"
+      [product]="product"
+      class="col-lg-4 col-md-6 col-sm-12 my-3"
+    ></app-product-card>
+  </div>
+</ng-container>
+
+<ng-template #errorPrinter>
+  <p>{{ errorPrinter }}</p>
+</ng-template>
+
+</div>
