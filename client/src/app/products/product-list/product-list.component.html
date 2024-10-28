@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container my-3">
 
   <h1>{{pageTitle}}</h1>
 
-<ng-container *ngIf="productList.length" ; else errorPrinter>
+<ng-container *ngIf="productList.length ; else errorPrinter">
   <div class="row">
     <app-product-card
       *ngFor="let product of productList"
@@ -13,7 +13,9 @@
 </ng-container>
 
 <ng-template #errorPrinter>
-  <p>{{ errorPrinter }}</p>
+  <div class="alert alert-danger my-4 text-center" role="alert">
+  <p>{{errorMessage}}</p>
+  </div>
 </ng-template>
 
 </div>

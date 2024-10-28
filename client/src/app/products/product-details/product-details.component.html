@@ -1,1 +1,29 @@
-<p>product-details works! {{productId}}</p>
+<app-navbar></app-navbar>
+
+
+  <div class="container">
+
+
+  <div class="row">
+    <ng-container *ngIf="product; else errorPrinter">
+
+    <div class="col-12 col-sm-6 my-5">
+        <img src={{product?.image}} class="img-fluid" alt="{{product?.name}} image">
+    </div>
+
+    <div class="col-12 col-sm-6 my-5">
+        <h1>{{product?.name}}</h1>
+        <p>{{product?.description}}</p>
+        <p>in stock : {{product?.availableQuantity}}</p>
+        <p>{{product?.price}} €</p>
+
+        <button type="button" class="btn btn-success">Add to basket</button>
+    </div>
+  </ng-container>
+  </div>
+
+  <ng-template #errorPrinter>
+    <div class="alert alert-danger my-4 text-center" role="alert">
+      <p>{{errorMessage}}</p>
+    </div>
+  </ng-template>

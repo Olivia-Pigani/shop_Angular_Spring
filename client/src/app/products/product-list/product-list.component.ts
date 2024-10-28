@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
-import { Subscription, tap } from 'rxjs';
+import { EMPTY, Subscription, catchError, tap } from 'rxjs';
 import { ProductCardComponent } from "../product-card/product-card.component";
 import { CommonModule } from '@angular/common';
 
@@ -26,8 +26,14 @@ private productService: ProductService = inject(ProductService);
 ngOnInit(): void {
   this.sub = this.productService.getAllProducts()
   .pipe(
-    tap(()=>console.log('component operator'))
-  ).subscribe((data)=>this.productList = data);
+    catchError(err=>{
+      this.errorMessage = err;
+      return EMPTY;
+    })
+  ).subscribe({
+    next:(data)=>this.productList = data,
+    error: (err) => this.errorMessage = err
+  });
 }
 
 ngOnDestroy(): void {
