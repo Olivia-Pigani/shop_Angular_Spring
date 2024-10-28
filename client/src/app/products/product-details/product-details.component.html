@@ -8,33 +8,20 @@
     <ng-container *ngIf="product; else errorPrinter">
 
     <div class="col-12 col-sm-6 my-5">
-        <img src={{product?.image}} class="img-fluid" alt="{{product?.name}} image">
+        <img src={{product.image}} class="img-fluid" alt="{{product.name}} image">
     </div>
 
     <div class="col-12 col-sm-6 my-5">
-        <h1>{{product?.name}}</h1>
-        <p>{{product?.description}}</p>
-        <p>in stock : {{product?.availableQuantity}}</p>
-        <p>{{product?.price}} €</p>
+        <h1>{{product.name}}</h1>
+        <p>{{product.description}}</p>
+        <p>in stock : {{product.availableQuantity}}</p>
+        <p class="fw-bold fs-3 ">{{product.price}} €</p>
 
         <button type="button" class="btn btn-success">Add to basket</button>
-
-
-      <div class="row border">
-
-        <div class="row">
-          <div class="col">username</div>
-        </div>
-
-        <div class="row">
-          <div class="col">rating</div>
-        </div>
-
-        <div class="row">
-          <div class="col">description</div>
-        </div>
-      </div>
-
+      
+      <ng-container *ngIf="product.reviews; else noReviewMsg">
+      <app-review-card *ngFor="let review of product.reviews" [review]="review"></app-review-card>
+      </ng-container>
 
     </div>
   </ng-container>
@@ -44,4 +31,8 @@
     <div class="alert alert-danger my-4 text-center" role="alert">
       <p>{{errorMessage}}</p>
     </div>
+  </ng-template>
+
+  <ng-template #noReviewMsg>
+      <p>There is no reviews yet for this product</p>
   </ng-template>

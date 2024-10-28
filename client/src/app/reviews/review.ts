@@ -26,4 +26,6 @@ export interface Review {
 
     rating: number
 
+    userFirstName:string
+
 }

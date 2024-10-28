@@ -7,6 +7,8 @@ public record ReviewResponseDto(
 
   String description,
 
-  int rating
+  int rating,
+
+  String userFirstName
 ) {
 }

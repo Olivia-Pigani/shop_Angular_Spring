@@ -7,11 +7,12 @@ import { HttpClient } from '@angular/common/http';
 import { EMPTY, Subscription, catchError, tap } from 'rxjs';
 import { ProductService } from '../product.service';
 import { CommonModule } from '@angular/common';
+import { ReviewCardComponent } from "../../reviews/review-card/review-card.component";
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [NavbarComponent, CommonModule],
+  imports: [NavbarComponent, CommonModule, ReviewCardComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
