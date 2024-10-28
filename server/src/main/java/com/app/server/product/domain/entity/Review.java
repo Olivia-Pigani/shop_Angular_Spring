@@ -1,15 +1,15 @@
-package com.app.server.domain.entity;
+package com.app.server.product.domain.entity;
 
-import com.app.server.product.domain.entity.Product;
+import com.app.server.customer.domain.entity.Customer;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "review")
 public class Review {
 

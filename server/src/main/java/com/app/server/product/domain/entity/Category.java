@@ -1,4 +1,4 @@
-package com.app.server.domain.entity;
+package com.app.server.product.domain.entity;
 
 import com.app.server.product.domain.entity.Product;
 import jakarta.persistence.*;
@@ -7,26 +7,23 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Table(name = "orderline")
-public class OrderLine {
+@Table(name = "category")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_order")
-    private Order order;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "id_product")
-    private Product product;
-
-    private double quantity;
-
+    @OneToMany(mappedBy = "category",
+    fetch = FetchType.LAZY)
+    private Set<Product> productSet;
 }

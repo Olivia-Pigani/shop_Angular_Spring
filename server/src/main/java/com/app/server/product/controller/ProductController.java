@@ -3,6 +3,7 @@ package com.app.server.product.controller;
 
 import com.app.server.product.domain.dto.ProductRequestDto;
 import com.app.server.product.domain.dto.ProductResponseDto;
+import com.app.server.product.domain.dto.ReviewResponseDto;
 import com.app.server.product.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,8 @@ public class ProductController {
 
     private final ProductService productService;
 
-    public ProductController(ProductService productService) {
-        this.productService = productService;
+    public ProductController(ProductService productService ) {
+      this.productService = productService;
     }
 
     @PostMapping
@@ -39,6 +40,11 @@ public class ProductController {
     @PutMapping("/{productId}")
     public ResponseEntity<ProductResponseDto> updateProductById(@RequestBody ProductRequestDto productRequestDto,@PathVariable Long productId){
         return new ResponseEntity<>(productService.updateProductById(productId,productRequestDto),HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/{productId}/reviews")
+    public ResponseEntity<List<ReviewResponseDto>> getAllReviewByProductId(@PathVariable Long productId){
+      return new ResponseEntity<>(productService.getAllReviewByProductId(productId),HttpStatus.OK);
     }
 
     @DeleteMapping("/{productId}")

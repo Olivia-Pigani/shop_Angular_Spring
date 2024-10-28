@@ -1,12 +1,14 @@
 package com.app.server.product.service;
 
-import com.app.server.domain.entity.Category;
 import com.app.server.product.domain.dto.ProductRequestDto;
 import com.app.server.product.domain.dto.ProductResponseDto;
+import com.app.server.product.domain.dto.ReviewResponseDto;
 import com.app.server.product.domain.entity.Product;
+import com.app.server.product.domain.entity.Review;
 import com.app.server.product.domain.mapper.ProductMapper;
+import com.app.server.product.domain.mapper.ReviewMapper;
 import com.app.server.product.repository.ProductRepository;
-import jakarta.persistence.Column;
+import com.app.server.product.repository.ReviewRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,11 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    private final ReviewRepository reviewRepository;
+
+    public ProductService(ProductRepository productRepository, ReviewRepository reviewRepository) {
         this.productRepository = productRepository;
+      this.reviewRepository = reviewRepository;
     }
 
     public ProductResponseDto saveProduct(ProductRequestDto productRequestDto) {
@@ -70,4 +75,18 @@ public class ProductService {
        } else {
            throw new EntityNotFoundException(format("no product was found with the id %d", productId));       }
     }
+
+  public List<ReviewResponseDto> getAllReviewByProductId(Long productId) {
+
+    Optional<Product> productOpt = productRepository.findById(productId);
+
+    if (productOpt.isPresent()) {
+        Product product = productOpt.get();
+        List<Review> reviewList = reviewRepository.findAllByProductIs(product);
+        return ReviewMapper.toReviewResponseDtoList(reviewList);
+      }else {
+        throw new EntityNotFoundException(format("no product was found with the id %d", productId));       }
+      }
+
+
 }

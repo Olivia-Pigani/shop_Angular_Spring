@@ -1,5 +1,6 @@
-package com.app.server.domain.entity;
+package com.app.server.order.domain.entity;
 
+import com.app.server.customer.domain.entity.Customer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

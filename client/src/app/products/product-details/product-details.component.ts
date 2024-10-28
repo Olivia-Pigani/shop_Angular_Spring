@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
 import { EMPTY, Subscription, catchError, tap } from 'rxjs';
 import { ProductService } from '../product.service';
 import { CommonModule } from '@angular/common';
-import { HttpErrorService } from '../../utils/http-error.service';
 
 @Component({
   selector: 'app-product-details',

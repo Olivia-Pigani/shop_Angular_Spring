@@ -1,6 +1,5 @@
-package com.app.server.domain.entity;
+package com.app.server.customer.domain.entity;
 
-import com.app.server.product.domain.entity.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,16 +13,21 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Table(name = "category")
-public class Category {
+@Table(name = "adress")
+public class Adress {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String street;
 
-    @OneToMany(mappedBy = "category",
-    fetch = FetchType.LAZY)
-    private Set<Product> productSet;
+    private String houseNumber;
+
+    private String city;
+
+    private String country;
+
+    @OneToMany(mappedBy = "adress")
+    private Set<Customer> customerList;
 }

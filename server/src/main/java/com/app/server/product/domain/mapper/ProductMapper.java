@@ -3,7 +3,7 @@ package com.app.server.product.domain.mapper;
 import com.app.server.product.domain.dto.ProductRequestDto;
 import com.app.server.product.domain.dto.ProductResponseDto;
 import com.app.server.product.domain.entity.Product;
-import com.app.server.domain.entity.Category;
+import com.app.server.product.domain.entity.Category;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

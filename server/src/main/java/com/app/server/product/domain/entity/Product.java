@@ -1,8 +1,6 @@
 package com.app.server.product.domain.entity;
 
-import com.app.server.domain.entity.Category;
-import com.app.server.domain.entity.OrderLine;
-import com.app.server.domain.entity.Review;
+import com.app.server.order.domain.entity.OrderLine;
 import jakarta.persistence.*;
 import lombok.*;
 

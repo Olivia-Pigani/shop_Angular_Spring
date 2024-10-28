@@ -1,78 +1,104 @@
-export class Product {
-  #id: number;
+// import { Review } from '../reviews/review';
 
-  #name: string;
+import { Review } from "../reviews/review";
 
-  #description: string;
+// export class Product {
+//   #id: number;
 
-  #image: string;
+//   #name: string;
 
-  #availableQuantity: number;
+//   #description: string;
 
-  #price: number;
+//   #image: string;
 
-  constructor(
-    _id: number,
+//   #availableQuantity: number;
 
-    _name: string,
+//   #price: number;
 
-    _description: string,
+//   #reviews?: Review[];
 
-    _image: string,
+//   constructor(
+//     _id: number,
 
-    _availableQuantity: number,
+//     _name: string,
 
-    _price: number
-  ) {
-    (this.#id = _id),
-      (this.#name = _name),
-      (this.#description = _description),
-      (this.#image = _image),
-      (this.#availableQuantity = _availableQuantity),
-      (this.#price = _price);
-  }
+//     _description: string,
 
-  get id() {
-    return this.#id;
-  }
+//     _image: string,
 
-  get name() {
-    return this.#name;
-  }
+//     _availableQuantity: number,
 
-  get description() {
-    return this.#description;
-  }
+//     _price: number,
 
-  get image() {
-    return this.#image;
-  }
+//     _reviews: Review[]
+//   ) {
+//     (this.#id = _id),
+//       (this.#name = _name),
+//       (this.#description = _description),
+//       (this.#image = _image),
+//       (this.#availableQuantity = _availableQuantity),
+//       (this.#price = _price);
+//       (this.#reviews = _reviews);
+//   }
 
-  get availableQuantity() {
-    return this.#availableQuantity;
-  }
+//   get id() {
+//     return this.#id;
+//   }
 
-  get price() {
-    return this.#price;
-  }
+//   get name() {
+//     return this.#name;
+//   }
 
-  set name(newName: string) {
-    this.#name = newName;
-  }
+//   get description() {
+//     return this.#description;
+//   }
 
-  set description(newDescription: string) {
-    this.#description = newDescription;
-  }
+//   get image() {
+//     return this.#image;
+//   }
 
-  set image(newImage: string) {
-    this.#image = newImage;
-  }
+//   get availableQuantity() {
+//     return this.#availableQuantity;
+//   }
 
-  set availableQuantity(newAvailableQuantity: number) {
-    this.#availableQuantity = newAvailableQuantity;
-  }
+//   get price() {
+//     return this.#price;
+//   }
 
-  set price(newPrice: number) {
-    this.#price = newPrice;
-  }
+//   set name(newName: string) {
+//     this.#name = newName;
+//   }
+
+//   set description(newDescription: string) {
+//     this.#description = newDescription;
+//   }
+
+//   set image(newImage: string) {
+//     this.#image = newImage;
+//   }
+
+//   set availableQuantity(newAvailableQuantity: number) {
+//     this.#availableQuantity = newAvailableQuantity;
+//   }
+
+//   set price(newPrice: number) {
+//     this.#price = newPrice;
+//   }
+// }
+
+
+export interface Product {
+  id: number;
+
+  name: string;
+
+  description: string;
+
+  image: string;
+
+  availableQuantity: number;
+
+  price: number;
+
+  reviews?: Review[];
 }
