@@ -25,7 +25,7 @@ public class Role {
   @Enumerated(EnumType.STRING)
   private RoleEnum name;
 
-  @ManyToMany(mappedBy = "roleSet")
+  @OneToMany(mappedBy = "role")
   @JsonIgnore
   private Set<Customer> customerSet;
 

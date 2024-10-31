@@ -1,7 +1,6 @@
 package com.app.server.security;
 
 import com.app.server.security.filter.JwtAuthenticationFilter;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -15,8 +14,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,7 +23,7 @@ public class SecurityConfig {
 
   private final AuthenticationProvider authenticationProvider;
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
-  private final static String[] WHITE_LIST = {"/api/v1/**"};
+  private final static String[] WHITE_LIST = {"/api/v1/auth/**"};
 
   public SecurityConfig(AuthenticationProvider authenticationProvider, JwtAuthenticationFilter jwtAuthenticationFilter) {
     this.authenticationProvider = authenticationProvider;
@@ -58,14 +55,14 @@ public class SecurityConfig {
   }
 
   @Bean
-  CorsConfigurationSource getCorsConfiguration(){
+  CorsConfigurationSource getCorsConfiguration() {
     CorsConfiguration config = new CorsConfiguration();
     config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-    config.setAllowedMethods(List.of("GET","POST"));
-    config.setAllowedHeaders(List.of("Authorization","Content-Type"));
+    config.setAllowedMethods(List.of("GET", "POST"));
+    config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**",config);
+    source.registerCorsConfiguration("/**", config);
 
     return source;
   }

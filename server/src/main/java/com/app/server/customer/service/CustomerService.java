@@ -42,7 +42,7 @@ public class CustomerService {
         .phoneNumber(signUpRequestDto.phoneNumber())
         .birthDate(signUpRequestDto.birthDate())
         .email(signUpRequestDto.email())
-        .roleSet(Set.of(userRole))
+        .role(userRole)
         .password(passwordEncoder.encode(signUpRequestDto.password()))
         .build();
 
