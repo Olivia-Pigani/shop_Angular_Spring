@@ -8,11 +8,12 @@ import { EMPTY, Subscription, catchError, tap } from 'rxjs';
 import { ProductService } from '../product.service';
 import { CommonModule } from '@angular/common';
 import { ReviewCardComponent } from "../../reviews/review-card/review-card.component";
+import { FooterComponent } from "../../shared/footer/footer.component";
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, ReviewCardComponent],
+  imports: [NavbarComponent, CommonModule, ReviewCardComponent, FooterComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })

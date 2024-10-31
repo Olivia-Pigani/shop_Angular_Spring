@@ -7,8 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -17,33 +22,81 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "customer")
-public class Customer {
+public class Customer implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private String firstName;
+  private String firstName;
 
-    private String lastName;
+  private String lastName;
 
-    private String email;
+  private LocalDate birthDate;
 
-    private String pwd;
+  private String phoneNumber;
 
-    private LocalDate birthDate;
+  @Column(unique = true, nullable = false)
+  private String email;
 
-    private String phoneNumber;
+  private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "id_adress", nullable = false)
-    private Adress adress;
+  @CreationTimestamp
+  @Column(updatable = false, name = "created_at")
+  private LocalDate createdAt;
 
-    @OneToMany(mappedBy = "customer",
-            fetch = FetchType.LAZY)
-    private List<Review> reviewList;
+  @UpdateTimestamp
+  @Column(name = "updated_at")
+  private LocalDate updatedAt;
 
-    @OneToMany(mappedBy = "customer",
+ // private String role;
+
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return List.of();
+  }
+
+  @Override
+  public String getUsername() {
+    return email;
+  }
+
+  @Override
+  public String getPassword(){
+    return password;
+  }
+
+  @ManyToOne
+  @JoinColumn(name = "id_adress")
+  private Adress adress;
+
+  @OneToMany(mappedBy = "customer",
     fetch = FetchType.LAZY)
-    private List<Order> orderList;
+  private List<Review> reviewList;
+
+  @OneToMany(mappedBy = "customer",
+    fetch = FetchType.LAZY)
+  private List<Order> orderList;
+
 }

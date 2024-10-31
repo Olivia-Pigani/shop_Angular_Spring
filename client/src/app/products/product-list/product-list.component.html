@@ -2,7 +2,7 @@
 
   <h1>{{pageTitle}}</h1>
 
-<ng-container *ngIf="productList.length ; else errorPrinter">
+<ng-container *ngIf="allProducts$ | async as productList ; else errorPrinter">
   <div class="row">
     <app-product-card
       *ngFor="let product of productList"

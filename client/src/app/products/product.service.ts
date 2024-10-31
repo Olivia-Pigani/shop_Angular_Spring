@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, throwError, catchError, map, mergeMap, tap} from 'rxjs';
+import { Observable, throwError, catchError, map, mergeMap, tap, shareReplay} from 'rxjs';
 import { Product } from './product';
 import { HttpErrorService } from '../utils/http-error.service';
 import { ReviewService } from '../reviews/review.service';
@@ -15,37 +15,18 @@ export class ProductService {
   private http: HttpClient = inject(HttpClient);
   private reviewService: ReviewService = inject(ReviewService);
 
-  public getAllProducts(): Observable<Product[]>{
-    return this.http.get<Product[]>(this.productsUrl)
-    .pipe(
-      catchError(err => 
-        this.handleError(err)
-      ));
-  };
 
-  // public getProductById(productId: number):Observable<Product>{
-  //   return this.http.get<Product>(`${this.productsUrl}/${productId}`)
-  //   .pipe(
-  //     mergeMap(product=>this.getProductReviews(product)),
-  //     tap(e=>console.log(e)),
-  //     catchError(err=>this.handleError(err))
-  //   )
-  //   ;
-  // }
-
-  // private getProductReviews(product: Product):Observable<Product>{
-  //   return this.http.get<Review[]>(this.reviewService.getProductReviewsUrl(product.id))
-  //   .pipe(
-  //     map(reviews => ({...product,reviews} as Product))
-  //   ) 
-  // }
-
+  readonly allProducts$: Observable<Product[]> = this.http.get<Product[]>(this.productsUrl)
+  .pipe(
+    tap(product=>console.log(JSON.stringify(product))),
+    catchError(err => 
+      this.handleError(err)
+    ));
   
   public getProductById(productId: number):Observable<Product>{
     return this.http.get<Product>(`${this.productsUrl}/${productId}`)
     .pipe(
-      mergeMap(product=>this.getProductReviews(product)),
-      tap(e=>console.log(e)),
+      mergeMap(product=>this.getProductReviews(product)), // mergeMap allow to flat the result
       catchError(err=>this.handleError(err))
     )
     ;

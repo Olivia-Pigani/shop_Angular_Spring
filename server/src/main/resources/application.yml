@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   application:
     name: server
   config:
@@ -25,3 +27,4 @@ spring:
 
 server:
   port: ${SERVER_PORT}
+
