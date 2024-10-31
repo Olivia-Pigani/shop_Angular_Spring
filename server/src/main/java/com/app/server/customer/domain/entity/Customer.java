@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter
@@ -49,8 +49,24 @@ public class Customer implements UserDetails {
   @Column(name = "updated_at")
   private LocalDate updatedAt;
 
- // private String role;
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(
+    name = "customer_roles",
+    joinColumns = @JoinColumn(name = "id_customer"),
+    inverseJoinColumns = @JoinColumn(name = "id_role")
+  )
+  private Set<Role> roleSet = new HashSet<>();
 
+  //private boolean isEnabled;
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    List<GrantedAuthority> authorities = new ArrayList<>();
+    for (Role role : roleSet) {
+      authorities.add(new SimpleGrantedAuthority(role.getName().toString()));
+    }
+    return authorities;
+  }
 
   @Override
   public boolean isAccountNonExpired() {
@@ -67,15 +83,10 @@ public class Customer implements UserDetails {
     return true;
   }
 
-  @Override
-  public boolean isEnabled() {
-    return true;
-  }
-
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of();
-  }
+//  @Override
+//  public boolean isEnabled() {
+//    return isEnabled;
+//  }
 
   @Override
   public String getUsername() {
@@ -83,7 +94,7 @@ public class Customer implements UserDetails {
   }
 
   @Override
-  public String getPassword(){
+  public String getPassword() {
     return password;
   }
 
