@@ -4,6 +4,7 @@ import { ProductDetailsComponent } from './products/product-details/product-deta
 import { PageErrorComponent } from './utils/page-error/page-error.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginPageComponent } from './auth/login/login-page/login-page.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 export const routes: Routes = [
 
@@ -26,6 +27,11 @@ export const routes: Routes = [
         path:"auth/signin",
         title: "Sign in",
         component: LoginPageComponent
+    },
+    {
+        path:"auth/signup",
+        title: "Sign in",
+        component: SignupComponent
     },
     {
         path:"**",

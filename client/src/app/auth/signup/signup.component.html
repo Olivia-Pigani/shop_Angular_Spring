@@ -1,0 +1,66 @@
+<app-navbar></app-navbar>
+
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+
+    <div class="container vh-100 d-flex justify-content-center align-items-center">
+        <div class="row justify-content-center w-100 w-md-50">
+          <div class="col-12 col-md-8 border p-4 rounded">
+            <div class="text-center mb-4">
+              <h1>Sign up</h1>
+            </div>    
+
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First name</label>
+                <input type="text" class="form-control" id="firstName" formControlName="firstName"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="lastName" class="form-label">Last name</label>
+                <input type="text" class="form-control" id="lastName" formControlName="lastName"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="birthDate" class="form-label">Birth date</label>
+                <input type="date" class="form-control" id="birthDate" formControlName="birthDate"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone number</label>
+                <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber"
+                />
+              </div>
+      
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="text"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                placeholder="example@gmail.com"
+              />
+            </div>
+      
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" formControlName="password"
+              />
+            </div>
+      
+            <div class="justify-content-end mt-4 d-flex">
+              <button type="submit" class="btn btn-primary" [disabled]="!signUpForm.valid">Validate</button>
+            </div>
+
+            <div class="text-primary text-decoration-underline fw-semibold">
+                <p [routerLink]="['/auth/signin']">already have an account ? go to sign in page !</p>
+              </div>
+          </div>
+        </div>
+      </div>
+      
+    </form>
+      
+<app-footer></app-footer>

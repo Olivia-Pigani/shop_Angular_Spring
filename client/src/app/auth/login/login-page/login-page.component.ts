@@ -6,11 +6,13 @@ import {FormControl, FormGroup} from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { LoginRequest } from '../login-request';
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import { RouterLink, RouterLinkActive } from '@angular/router';
+
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent,ReactiveFormsModule],
+  imports: [NavbarComponent, FooterComponent,ReactiveFormsModule,RouterLink, RouterLinkActive],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })

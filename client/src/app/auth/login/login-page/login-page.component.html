@@ -29,10 +29,16 @@
         <div class="justify-content-end mt-4 d-flex">
           <button type="submit" class="btn btn-primary" [disabled]="signInForm.invalid">Validate</button>
         </div>
+
+        <div class="text-primary text-decoration-underline fw-semibold">
+          <p [routerLink]="['/auth/signup']">doesn't have an account ? go to sign up page !</p>
+        </div>
+
+
       </div>
     </div>
   </div>
   
 </form>
   
-  <app-footer></app-footer>
+<app-footer></app-footer>
