@@ -24,6 +24,7 @@ public class CustomerService {
   private final AuthenticationManager authenticationManager;
   private final RoleRepository roleRepository;
   private JwtService jwtService;
+  private static final String ADMIN_EMAIL = "admin@email.com";
 
   public CustomerService(PasswordEncoder passwordEncoder, CustomerRepository customerRepository, AuthenticationManager authenticationManager, RoleRepository roleRepository, JwtService jwtService) {
     this.passwordEncoder = passwordEncoder;
@@ -38,8 +39,9 @@ public class CustomerService {
 
     if (customer.isEmpty()) {
 
-      //every new registered user will have automatically a ROLE_CUSTOMER role.
-      Role userRole = roleRepository.findByName(RoleEnum.ROLE_CUSTOMER);
+      //the first user will be the unique Admin, then users will be of type Customer.
+      String email = signUpRequestDto.email();
+      Role role = email.equals(ADMIN_EMAIL) ? roleRepository.findByName(RoleEnum.ROLE_ADMIN) : roleRepository.findByName(RoleEnum.ROLE_CUSTOMER);
 
       Customer newCustomer = Customer.builder()
         .firstName(signUpRequestDto.firstName())
@@ -47,7 +49,7 @@ public class CustomerService {
         .phoneNumber(signUpRequestDto.phoneNumber())
         .birthDate(signUpRequestDto.birthDate())
         .email(signUpRequestDto.email())
-        .role(userRole)
+        .role(role)
         .password(passwordEncoder.encode(signUpRequestDto.password()))
         .build();
 
