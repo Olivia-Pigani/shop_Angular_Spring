@@ -14,6 +14,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -73,7 +75,11 @@ public class CustomerService {
     Customer customer = customerRepository.findByEmail(signInRequestDto.email())
       .orElseThrow();
 
-    String jwtToken = jwtService.generateToken(customer);
+    Map<String,Object> extraClaims = new HashMap<>();
+    extraClaims.put("userId",customer.getId());
+    extraClaims.put("role",customer.getRole());
+
+    String jwtToken = jwtService.generateToken(extraClaims,customer);
 
     return new SignInResponseDto(jwtToken, jwtService.getExpirationTime());
   }

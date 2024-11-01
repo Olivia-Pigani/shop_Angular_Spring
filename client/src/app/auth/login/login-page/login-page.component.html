@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+
+<form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+    <div class="row justify-content-center w-100 w-md-50">
+      <div class="col-12 col-md-8 border p-4 rounded">
+        <div class="text-center mb-4">
+          <h1>Sign in</h1>
+        </div>    
+  
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="text"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            placeholder="example@gmail.com"
+          />
+        </div>
+  
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" formControlName="password"
+          />
+        </div>
+  
+        <div class="justify-content-end mt-4 d-flex">
+          <button type="submit" class="btn btn-primary" [disabled]="signInForm.invalid">Validate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</form>
+  
+  <app-footer></app-footer>

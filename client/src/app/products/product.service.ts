@@ -13,7 +13,6 @@ export class ProductService {
   private productsUrl: string = 'http://localhost:8586/api/v1/products'
   private httpErrorService:HttpErrorService = inject(HttpErrorService);
   private http: HttpClient = inject(HttpClient);
-  private reviewService: ReviewService = inject(ReviewService);
 
 
   readonly allProducts$: Observable<Product[]> = this.http.get<Product[]>(this.productsUrl)

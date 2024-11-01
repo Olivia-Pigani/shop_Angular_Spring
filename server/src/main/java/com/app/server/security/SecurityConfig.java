@@ -23,7 +23,7 @@ public class SecurityConfig {
 
   private final AuthenticationProvider authenticationProvider;
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
-  private final static String[] WHITE_LIST = {"/api/v1/auth/**"};
+  //private final static String[] WHITE_LIST = {"/api/v1/auth/**"};
 
   public SecurityConfig(AuthenticationProvider authenticationProvider, JwtAuthenticationFilter jwtAuthenticationFilter) {
     this.authenticationProvider = authenticationProvider;
@@ -37,8 +37,8 @@ public class SecurityConfig {
       .authorizeHttpRequests(
         authorize -> {
           authorize
-            .requestMatchers(WHITE_LIST).permitAll()
-            .anyRequest().authenticated();
+            //.requestMatchers(WHITE_LIST).permitAll()
+            .anyRequest().permitAll();
         })
 
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
