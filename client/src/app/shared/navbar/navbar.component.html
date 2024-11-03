@@ -7,9 +7,6 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Admin</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="#">Basket</a>
           </li>
           <li class="nav-item dropdown">
@@ -21,9 +18,15 @@
               <li><a class="dropdown-item" href="#">2</a></li>
             </ul>
           </li>
-          <li class="nav-item">
+
+          <li class="nav-item" *ngIf="!isLoggedIn()" >
             <a class="nav-link" aria-disabled="true" [routerLink]="'/auth/signin'">Sign in</a>
           </li>
+          <li class="nav-item" *ngIf="isLoggedIn()">
+            <a class="nav-link" aria-disabled="true" (click)="onLogout()">Log out</a>
+          </li>
+
+
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
