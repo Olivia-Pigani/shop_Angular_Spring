@@ -21,7 +21,12 @@ export class ProductService {
     catchError(err => 
       this.handleError(err)
     ));
-  
+
+    public getProductByCategoryName(categoryName: string):Observable<Product[]>{
+      return this.http.get<Product[]>(`${this.productsUrl}/categories/${categoryName}`)
+    }
+   
+    
   public getProductById(productId: number):Observable<Product>{
     return this.http.get<Product>(`${this.productsUrl}/${productId}`)
     .pipe(

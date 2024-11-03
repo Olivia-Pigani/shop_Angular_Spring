@@ -5,6 +5,7 @@ import { PageErrorComponent } from './utils/page-error/page-error.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginPageComponent } from './auth/login/login-page/login-page.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { CategoryComponent } from './category/category.component';
 
 export const routes: Routes = [
 
@@ -17,6 +18,11 @@ export const routes: Routes = [
         path:"homepage",
         title:"Home Page",
         component:HomepageComponent,
+    },
+    {
+        path:"category/:categoryName",
+        title:"All Product's category",
+        component: CategoryComponent
     },
     {
         path:"details/:id",
