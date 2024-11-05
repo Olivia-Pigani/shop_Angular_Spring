@@ -1,6 +1,5 @@
 package com.app.server.customer.controller;
 
-import com.app.server.customer.domain.entity.Customer;
 import com.app.server.customer.dto.SignInRequestDto;
 import com.app.server.customer.dto.SignInResponseDto;
 import com.app.server.customer.dto.SignUpRequestDto;

@@ -29,5 +29,4 @@ public class OrderLine {
     @JoinColumn(name = "id_product")
     private Product product;
 
-
 }
