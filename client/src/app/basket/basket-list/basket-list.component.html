@@ -1,3 +1,9 @@
-<h2 class="mb-5">My basket</h2>
+<h2 class="mb-5">{{pageTitle}}</h2>
 
-<app-basket-item></app-basket-item>
+<ng-container *ngIf="basketItemList().length; else noItemMsg">
+<app-basket-item *ngFor="let basketItem of basketItemList()" [basketItem]="basketItem"></app-basket-item>
+</ng-container>
+
+<ng-template #noItemMsg>
+    <p>There is no items into the basket yet !</p>
+</ng-template>

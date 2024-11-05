@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { BasketItem } from '../basket-item';
 
 @Component({
   selector: 'app-basket-item',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './basket-item.component.css'
 })
 export class BasketItemComponent {
-
+@Input() basketItem!:BasketItem;
 }

@@ -15,8 +15,7 @@
         <p>in stock : {{product.availableQuantity}}</p>
         <p class="fw-bold fs-3 ">{{product.price}} €</p>
 
-          <select class="form-select w-50 my-3" id="floatingSelect" aria-label="select the quantity of product to put in basket">
-            <option selected>quantity: 1</option>
+          <select [formControl]="quantity"  class="form-select w-50 my-3" id="floatingSelect" aria-label="select the quantity of product to put in basket">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -24,7 +23,7 @@
             <option value="3">5</option>
           </select>
 
-        <button type="button" class="btn btn-success">Add to basket</button>
+        <button type="button" class="btn btn-success" (click)="addToBasket(product)">Add to basket</button>
       
       <ng-container *ngIf="product.reviews; else noReviewMsg">
       <app-review-card *ngFor="let review of product.reviews" [review]="review"></app-review-card>
