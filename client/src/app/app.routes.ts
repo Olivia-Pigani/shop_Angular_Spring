@@ -6,6 +6,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { LoginPageComponent } from './auth/login/login-page/login-page.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { CategoryComponent } from './category/category.component';
+import { BasketPageComponent } from './basket/basket-page/basket-page.component';
 
 export const routes: Routes = [
 
@@ -28,6 +29,11 @@ export const routes: Routes = [
         path:"details/:id",
         title: "Product details",
         component: ProductDetailsComponent
+    },
+    {
+        path:"basket",
+        title:"Basket",
+        component: BasketPageComponent
     },
     {
         path:"auth/signin",
