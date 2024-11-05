@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 export class NavbarComponent implements OnInit{
 private authService: AuthService = inject(AuthService);
 public isLoggedIn!: Signal<boolean>;
+public itemQuantityInBasket: number = localStorage.getItem("basketItemList") ? JSON.parse(localStorage.getItem("basketItemList")!).length : 0;
 
 ngOnInit(): void {
   this.isLoggedIn = this.authService.isLoggedIn.asReadonly();
