@@ -5,12 +5,12 @@
   <div class="my-3 text-start">
     <p class="fw-bold d-flex justify-content-between">
       <span>Sub-total:</span>
-      <span>{{subTotal()}} €</span>
+      <span>{{subTotal() | currency:'EUR'}}</span>
     </p>
     <p class="fw-bold d-flex justify-content-between">
       <span>Delivery:</span>
       <ng-content *ngIf="deliveryFees() != 0; else freeMsg">
-        <span>{{deliveryFees()}} €</span>
+        <span>{{deliveryFees()| currency:'EUR'}}</span>
       </ng-content>
       <ng-template #freeMsg>
         <span>Free</span>
@@ -18,12 +18,12 @@
     </p>
     <p class="fw-bold d-flex justify-content-between">
       <span>Tax:</span>
-      <span>{{tax()}} €</span>
+      <span>{{tax()| currency:'EUR'}}</span>
     </p>
     <hr />
     <p class="fw-bold d-flex justify-content-between fs-5">
       <span>Total:</span>
-      <span>{{totalPrice()}} €</span>
+      <span>{{totalPrice()| currency:'EUR'}} </span>
     </p>
   </div>
 
