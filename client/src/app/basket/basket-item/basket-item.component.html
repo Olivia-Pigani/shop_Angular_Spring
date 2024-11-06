@@ -1,7 +1,11 @@
 <div class="card my-2" style="max-width: 540px;">
     <div class="row g-0">
+      <ng-content *ngIf="basketItem.quantity >= 5">
+        <div class="alert alert-warning" role="alert">
+          You have already 5 quantity of that item
+        </div>
+      </ng-content>
       <div class="col-md-5 d-flex align-items-center justify-content-center ">
-        
         <img src="{{basketItem.product.image}}" class="img-fluid rounded-start" alt="product in basket image">
     
       </div>

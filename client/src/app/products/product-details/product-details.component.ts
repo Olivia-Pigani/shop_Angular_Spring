@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { Product } from '../product';
 import { HttpClient } from '@angular/common/http';
@@ -27,6 +27,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
     ReviewCardComponent,
     FooterComponent,
     ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
