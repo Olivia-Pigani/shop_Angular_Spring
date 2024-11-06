@@ -12,7 +12,7 @@
       <div class="col-md-7">
         <div class="card-body d-flex flex-column align-items-center">
             <div>
-          <p class="card-text">{{basketItem.product.price}} €</p>
+          <p class="card-text">{{basketItem.product.price | currency:'EUR'}}</p>
           <h5 class="card-title fw-bold">{{basketItem.product.name}}</h5>
         </div>
 
@@ -29,7 +29,7 @@
           </p>
         </div>
 
-          <p class="card-text">total: 30€</p>
+          <p class="card-text">total: {{totalItemPrice() | currency:'EUR'}}</p>
           <button type="button" class="btn btn-outline-danger" (click)="removeItem()">delete</button>
         </div>
       </div>

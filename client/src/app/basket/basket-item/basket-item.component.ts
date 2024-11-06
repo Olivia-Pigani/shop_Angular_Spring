@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, effect, inject } from '@angular/core';
+import { Component, Input, OnInit, Signal, computed, effect, inject } from '@angular/core';
 import { BasketItem } from '../basket-item';
 import { BasketService } from '../basket.service';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,8 @@ export class BasketItemComponent{
 private basketService:BasketService = inject(BasketService);
 @Input() basketItem!:BasketItem;
 @Input() index!:number;
+
+totalItemPrice:Signal<number> = computed(()=>this.basketItem.product.price * this.basketItem.quantity)
 
 public onQuantitySelected(quantity:number):void{
 this.basketService.updateItemQuantity(this.basketItem,quantity)
