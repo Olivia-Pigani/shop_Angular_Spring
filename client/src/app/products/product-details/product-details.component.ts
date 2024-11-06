@@ -41,7 +41,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   private sub!: Subscription;
 
   public quantity: FormControl<number> = new FormControl(1, {
-    validators: [Validators.required],
+    validators: [Validators.required,Validators.min(1)],
     nonNullable: true,
   });
 
