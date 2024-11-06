@@ -2,7 +2,7 @@
     <div class="row g-0">
       <ng-content *ngIf="basketItem.quantity >= 5">
         <div class="alert alert-warning" role="alert">
-          You have already 5 quantity of that item
+          You have already 5 quantities of that item
         </div>
       </ng-content>
       <div class="col-md-5 d-flex align-items-center justify-content-center ">
@@ -18,8 +18,8 @@
 
         <div>
           <p class="card-text">
-            <select class="form-select w-100 my-3" id="floatingSelect">
-                <option selected>Qty: {{basketItem.quantity}}</option>
+            <select class="form-select w-100 my-3" id="floatingSelect" aria-label="select the quantity of product to put in basket">
+                <option value="">Qty: {{basketItem.quantity}}</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
