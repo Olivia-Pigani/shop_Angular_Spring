@@ -33,6 +33,10 @@ public class JwtService {
     return extractClaim(token, Claims::getSubject);
   }
 
+  public String bearerRemover(String tokenWithBearer){
+    return  tokenWithBearer.substring(7);
+  }
+
   public String generateToken(UserDetails userDetails) {
     return generateToken(new HashMap<>(), userDetails);
   }
@@ -61,14 +65,6 @@ public class JwtService {
     return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
   }
 
-  private boolean isTokenExpired(String token) {
-    return extractExpiration(token).before(new Date());
-  }
-
-  private Date extractExpiration(String token) {
-    return extractClaim(token, Claims::getExpiration);
-  }
-
   private Claims extractAllClaimsFromToken(String token) {
     return Jwts
       .parser()
@@ -76,6 +72,15 @@ public class JwtService {
       .build()
       .parseSignedClaims(token)
       .getPayload();
+  }
+
+
+  private boolean isTokenExpired(String token) {
+    return extractExpiration(token).before(new Date());
+  }
+
+  private Date extractExpiration(String token) {
+    return extractClaim(token, Claims::getExpiration);
   }
 
 

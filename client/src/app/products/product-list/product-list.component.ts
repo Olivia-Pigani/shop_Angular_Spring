@@ -67,7 +67,7 @@ public displayProducts(categoryName?: string): void{
         return EMPTY;
       }),
       tap(()=>{
-        this.pageTitle = `product of type ${categoryName}`;
+        this.pageTitle = `products of type ${categoryName}`;
       })
     )
   }

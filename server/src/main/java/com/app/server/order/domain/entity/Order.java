@@ -2,10 +2,7 @@ package com.app.server.order.domain.entity;
 
 import com.app.server.customer.domain.entity.Customer;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Table(name = "orders")
 public class Order {
 
@@ -33,6 +31,6 @@ public class Order {
     @JoinColumn(name = "id_customer", nullable = false)
     private Customer customer;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderLine> orderLineList;
 }
