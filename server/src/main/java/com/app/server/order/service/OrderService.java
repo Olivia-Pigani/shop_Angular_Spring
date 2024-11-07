@@ -37,7 +37,7 @@ public class OrderService {
     Optional<Customer> customer = customerRepository.findByEmail(userEmail);
     Long customerId = null;
 
-    if (customer.isPresent()){
+    if (customer.isPresent()) {
       customerId = customer.get().getId();
 
 

@@ -8,6 +8,7 @@ import com.app.server.customer.dto.SignUpRequestDto;
 import com.app.server.customer.enumeration.RoleEnum;
 import com.app.server.customer.repository.CustomerRepository;
 import com.app.server.customer.repository.RoleRepository;
+import com.app.server.exception.CustomCustomerException;
 import com.app.server.security.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,7 +37,7 @@ public class CustomerService {
     this.jwtService = jwtService;
   }
 
-  public String signup(SignUpRequestDto signUpRequestDto) {
+  public String signup(SignUpRequestDto signUpRequestDto) throws CustomCustomerException {
     Optional<Customer> customer = customerRepository.findByEmail(signUpRequestDto.email());
 
     if (customer.isEmpty()) {
@@ -59,11 +60,14 @@ public class CustomerService {
 
       return "welcome to the application " + signUpRequestDto.firstName() + " " + signUpRequestDto.lastName() + " !";
     } else {
-      throw new IllegalArgumentException("the user already exist with email: " + signUpRequestDto.email());
+      throw new CustomCustomerException(CustomCustomerException.CustomerError.CUSTOMER_ALREADY_EXISTS, String.format("the user already exist with email: %s ", signUpRequestDto.email()));
     }
   }
 
-  public SignInResponseDto signIn(SignInRequestDto signInRequestDto) {
+  public SignInResponseDto signIn(SignInRequestDto signInRequestDto) throws CustomCustomerException {
+
+    Customer customer = customerRepository.findByEmail(signInRequestDto.email())
+      .orElseThrow(() -> new CustomCustomerException(CustomCustomerException.CustomerError.CUSTOMER_NOT_FOUND, String.format("the user with email %s doesn't have an account", signInRequestDto.email())));
 
     authenticationManager.authenticate(
       new UsernamePasswordAuthenticationToken(
@@ -72,14 +76,11 @@ public class CustomerService {
       )
     );
 
-    Customer customer = customerRepository.findByEmail(signInRequestDto.email())
-      .orElseThrow();
+    Map<String, Object> extraClaims = new HashMap<>();
+    extraClaims.put("userId", customer.getId());
+    extraClaims.put("role", customer.getRole());
 
-    Map<String,Object> extraClaims = new HashMap<>();
-    extraClaims.put("userId",customer.getId());
-    extraClaims.put("role",customer.getRole());
-
-    String jwtToken = jwtService.generateToken(extraClaims,customer);
+    String jwtToken = jwtService.generateToken(extraClaims, customer);
 
     return new SignInResponseDto(jwtToken, jwtService.getExpirationTime());
   }

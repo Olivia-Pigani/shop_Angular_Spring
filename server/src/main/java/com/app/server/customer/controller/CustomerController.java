@@ -4,6 +4,7 @@ import com.app.server.customer.dto.SignInRequestDto;
 import com.app.server.customer.dto.SignInResponseDto;
 import com.app.server.customer.dto.SignUpRequestDto;
 import com.app.server.customer.service.CustomerService;
+import com.app.server.exception.CustomCustomerException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class CustomerController {
   }
 
   @PostMapping("/signin")
-  public ResponseEntity<SignInResponseDto> signIn(@Valid @RequestBody SignInRequestDto signInRequestDto) {
+  public ResponseEntity<SignInResponseDto> signIn(@Valid @RequestBody SignInRequestDto signInRequestDto) throws CustomCustomerException {
     return new ResponseEntity<>(customerService.signIn(signInRequestDto),HttpStatus.ACCEPTED);
   }
 
