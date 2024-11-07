@@ -75,6 +75,9 @@
         <li class="nav-item me-3" *ngIf="isLoggedIn()">
           <a class="nav-link" (click)="onLogout()">Log out</a>
         </li>
+        <li class="nav-item me-3" *ngIf="isLoggedIn()">
+          <a class="nav-link" [routerLink]="'/account'">My account</a>
+        </li>
       </ul>
 
       <form class="d-flex ms-auto" role="search">

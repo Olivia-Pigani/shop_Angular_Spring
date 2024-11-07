@@ -1,0 +1,75 @@
+<app-navbar></app-navbar>
+
+
+
+<div class="container">
+    <h1 class="text-center my-4">{{pageTitle}}</h1>
+  
+    <h2 class="my-4 text-decoration-underline">My profil</h2>
+  
+    <form class="my-4">
+        <h3>General informations</h3>
+      <div class="row my-3">
+        <div class="form-group col-md-6">
+          <label for="firstName">First name</label>
+          <input type="text" class="form-control" id="firstName" >
+        </div>
+        <div class="form-group col-md-6">
+          <label for="lastName">Last name</label>
+          <input type="text" class="form-control" id="lastName" >
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="form-group col-md-6">
+          <label for="birthDate">Birth date</label>
+          <input type="date" class="form-control" id="birthDate" >
+        </div>
+        <div class="form-group col-md-6">
+          <label for="phoneNumber">Phone number</label>
+          <input type="password" class="form-control" id="phoneNumber" >
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="form-group col-md-6">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" >
+        </div>
+      </div>
+    </form>
+
+
+    <form class="my-4">
+        <h3>Postal adress</h3>
+        <div class="row my-3">
+          <div class="form-group col-md-6">
+            <label for="country">Country</label>
+            <input type="text" class="form-control" id="country" >
+          </div>
+          <div class="form-group col-md-6">
+            <label for="city">City</label>
+            <input type="text" class="form-control" id="city" >
+          </div>
+        </div>
+        <div class="row my-3">
+          <div class="form-group col-md-6">
+            <label for="street">Street</label>
+            <input type="text" class="form-control" id="street" >
+          </div>
+          <div class="form-group col-md-6">
+            <label for="houseNumber">House number</label>
+            <input type="password" class="form-control" id="houseNumber" >
+          </div>
+        </div>
+      </form>
+
+      <app-order-card></app-order-card>
+
+
+</div>
+
+
+
+
+
+
+<app-footer></app-footer>

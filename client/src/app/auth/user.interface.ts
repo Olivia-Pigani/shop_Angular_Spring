@@ -9,7 +9,5 @@ export interface User {
     phoneNumber : string
 
     role: string
-
-    //email password adress ?
   
 }
