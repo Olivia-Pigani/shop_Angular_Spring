@@ -3,6 +3,7 @@ package com.app.server.security;
 import com.app.server.security.filter.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,7 +24,7 @@ public class SecurityConfig {
 
   private final AuthenticationProvider authenticationProvider;
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
-  //private final static String[] WHITE_LIST = {"/api/v1/auth/**"};
+  private final static String[] WHITE_LIST = {"/api/v1/auth/**"};
 
   public SecurityConfig(AuthenticationProvider authenticationProvider, JwtAuthenticationFilter jwtAuthenticationFilter) {
     this.authenticationProvider = authenticationProvider;
@@ -37,8 +38,12 @@ public class SecurityConfig {
       .authorizeHttpRequests(
         authorize -> {
           authorize
-            //.requestMatchers(WHITE_LIST).permitAll()
-            .anyRequest().permitAll();
+            .requestMatchers(WHITE_LIST).permitAll()
+            .requestMatchers(HttpMethod.GET, "api/v1/products",
+              "api/v1/products/{productId}",
+              "api/v1/products/categories/{categoryName}",
+              "api/v1/products/{productId}/reviews").permitAll()
+            .anyRequest().authenticated();
         })
 
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

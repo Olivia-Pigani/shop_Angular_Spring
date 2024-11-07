@@ -42,12 +42,13 @@ public class ProductController {
     return new ResponseEntity<>(productService.getAllProductsByCategory(categoryName),HttpStatus.OK);
   }
 
+
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
   @GetMapping("/{productId}")
   public ResponseEntity<ProductResponseDto> findProductById(@PathVariable Long productId) throws CustomProductException {
     return new ResponseEntity<>(productService.findProductById(productId), HttpStatus.OK);
   }
 
-  @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PutMapping("/{productId}")
   public ResponseEntity<ProductResponseDto> updateProductById(@RequestBody ProductRequestDto productRequestDto, @PathVariable Long productId) throws CustomProductException {
     return new ResponseEntity<>(productService.updateProductById(productId, productRequestDto), HttpStatus.ACCEPTED);
