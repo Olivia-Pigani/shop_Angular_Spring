@@ -13,4 +13,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     return ResponseEntity.status(customCustomerException.getError().getCode())
       .body(customCustomerException.getMessage());
   }
+
+  @ExceptionHandler(CustomProductException.class)
+  public ResponseEntity<Object> handleCustomCProductException(CustomProductException customProductException) {
+    return ResponseEntity.status(customProductException.getError().getCode())
+      .body(customProductException.getMessage());
+  }
+
+  @ExceptionHandler(CustomCategoryException.class)
+  public ResponseEntity<Object> handleCustomCProductException(CustomCategoryException customCategoryException) {
+    return ResponseEntity.status(customCategoryException.getError().getCode())
+      .body(customCategoryException.getMessage());
+  }
+
+
 }

@@ -1,5 +1,6 @@
 package com.app.server.order.controller;
 
+import com.app.server.exception.CustomCustomerException;
 import com.app.server.order.domain.dto.OrderRequestDto;
 import com.app.server.order.domain.dto.OrderResponseDto;
 import com.app.server.order.service.OrderService;
@@ -25,13 +26,13 @@ public class OrderController {
 
   @PreAuthorize("hasRole('ROLE_CUSTOMER')")
   @PostMapping
-  public ResponseEntity<OrderResponseDto> makeAOrders(@RequestHeader(name="Authorization") String userToken, @RequestBody @Valid OrderRequestDto orderRequestDto){
+  public ResponseEntity<OrderResponseDto> makeAOrders(@RequestHeader(name="Authorization") String userToken, @RequestBody @Valid OrderRequestDto orderRequestDto) throws CustomCustomerException {
     return new ResponseEntity<>(orderService.makeAOrder(userToken,orderRequestDto), HttpStatus.CREATED);
   }
 
   @PreAuthorize("hasRole('ROLE_CUSTOMER')")
   @GetMapping
-  public ResponseEntity<List<OrderResponseDto>> getAllCustomerOrders(@RequestHeader(name="Authorization") String userToken){
+  public ResponseEntity<List<OrderResponseDto>> getAllCustomerOrders(@RequestHeader(name="Authorization") String userToken) throws CustomCustomerException {
     return new ResponseEntity<>(orderService.getAllCustomerOrders(userToken), HttpStatus.OK);
   }
 }

@@ -19,6 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.app.server.exception.CustomCustomerException.CustomerError.CUSTOMER_ALREADY_EXISTS;
+import static com.app.server.exception.CustomCustomerException.CustomerError.CUSTOMER_NOT_FOUND;
+
 @Service
 public class CustomerService {
 
@@ -60,14 +63,14 @@ public class CustomerService {
 
       return "welcome to the application " + signUpRequestDto.firstName() + " " + signUpRequestDto.lastName() + " !";
     } else {
-      throw new CustomCustomerException(CustomCustomerException.CustomerError.CUSTOMER_ALREADY_EXISTS, String.format("the user already exist with email: %s ", signUpRequestDto.email()));
+      throw new CustomCustomerException(CUSTOMER_ALREADY_EXISTS, String.format("the user already exist with email: %s ", signUpRequestDto.email()));
     }
   }
 
   public SignInResponseDto signIn(SignInRequestDto signInRequestDto) throws CustomCustomerException {
 
     Customer customer = customerRepository.findByEmail(signInRequestDto.email())
-      .orElseThrow(() -> new CustomCustomerException(CustomCustomerException.CustomerError.CUSTOMER_NOT_FOUND, String.format("the user with email %s doesn't have an account", signInRequestDto.email())));
+      .orElseThrow(() -> new CustomCustomerException(CUSTOMER_NOT_FOUND, String.format("the user with email %s doesn't have an account", signInRequestDto.email())));
 
     authenticationManager.authenticate(
       new UsernamePasswordAuthenticationToken(

@@ -1,10 +1,13 @@
 package com.app.server.product.controller;
 
 
+import com.app.server.exception.CustomCategoryException;
+import com.app.server.exception.CustomProductException;
 import com.app.server.product.domain.dto.ProductRequestDto;
 import com.app.server.product.domain.dto.ProductResponseDto;
 import com.app.server.product.domain.dto.ReviewResponseDto;
 import com.app.server.product.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,7 +27,7 @@ public class ProductController {
 
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PostMapping
-  public ResponseEntity<ProductResponseDto> saveProduct(@RequestBody ProductRequestDto productRequestDto) {
+  public ResponseEntity<ProductResponseDto> saveProduct(@RequestBody @Valid ProductRequestDto productRequestDto) throws CustomCategoryException {
     return new ResponseEntity<>(productService.saveProduct(productRequestDto), HttpStatus.CREATED);
   }
 
@@ -40,24 +43,24 @@ public class ProductController {
   }
 
   @GetMapping("/{productId}")
-  public ResponseEntity<ProductResponseDto> findProductById(@PathVariable Long productId) {
+  public ResponseEntity<ProductResponseDto> findProductById(@PathVariable Long productId) throws CustomProductException {
     return new ResponseEntity<>(productService.findProductById(productId), HttpStatus.OK);
   }
 
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PutMapping("/{productId}")
-  public ResponseEntity<ProductResponseDto> updateProductById(@RequestBody ProductRequestDto productRequestDto, @PathVariable Long productId) {
+  public ResponseEntity<ProductResponseDto> updateProductById(@RequestBody ProductRequestDto productRequestDto, @PathVariable Long productId) throws CustomProductException {
     return new ResponseEntity<>(productService.updateProductById(productId, productRequestDto), HttpStatus.ACCEPTED);
   }
 
   @GetMapping("/{productId}/reviews")
-  public ResponseEntity<List<ReviewResponseDto>> getAllReviewByProductId(@PathVariable Long productId) {
+  public ResponseEntity<List<ReviewResponseDto>> getAllReviewByProductId(@PathVariable Long productId) throws CustomProductException {
     return new ResponseEntity<>(productService.getAllReviewByProductId(productId), HttpStatus.OK);
   }
 
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @DeleteMapping("/{productId}")
-  public ResponseEntity<String> deleteProductById(@PathVariable Long productId) {
+  public ResponseEntity<String> deleteProductById(@PathVariable Long productId) throws CustomProductException {
     return new ResponseEntity<>(productService.deleteProductById(productId), HttpStatus.ACCEPTED);
   }
 

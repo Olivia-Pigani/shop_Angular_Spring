@@ -2,6 +2,7 @@ package com.app.server.order.service;
 
 import com.app.server.customer.domain.entity.Customer;
 import com.app.server.customer.repository.CustomerRepository;
+import com.app.server.exception.CustomCustomerException;
 import com.app.server.order.domain.dto.OrderRequestDto;
 import com.app.server.order.domain.dto.OrderResponseDto;
 import com.app.server.order.domain.entity.Order;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.app.server.exception.CustomCustomerException.CustomerError.CUSTOMER_NOT_FOUND;
 
 @Slf4j
 @Service
@@ -31,7 +34,7 @@ public class OrderService {
     this.jwtService = jwtService;
   }
 
-  public OrderResponseDto makeAOrder(String userToken, OrderRequestDto orderRequestDto) {
+  public OrderResponseDto makeAOrder(String userToken, OrderRequestDto orderRequestDto) throws CustomCustomerException {
 
     String userEmail = jwtService.extractUsername(jwtService.bearerRemover(userToken));
     Optional<Customer> customer = customerRepository.findByEmail(userEmail);
@@ -45,10 +48,10 @@ public class OrderService {
       return orderMapper.toOrderResponseDto(order);
     }
 
-    throw new EntityNotFoundException("the user was not found with the email : " + userEmail);
+    throw new CustomCustomerException(CUSTOMER_NOT_FOUND,String.format("no user was found with email %s", userEmail));
   }
 
-  public List<OrderResponseDto> getAllCustomerOrders(String userToken) {
+  public List<OrderResponseDto> getAllCustomerOrders(String userToken) throws CustomCustomerException {
     String userEmail = jwtService.extractUsername(jwtService.bearerRemover(userToken));
     Optional<Customer> customer = customerRepository.findByEmail(userEmail);
     Long customerId = null;
@@ -61,7 +64,7 @@ public class OrderService {
       return orderMapper.toOrderResponseDtoList(allCustomerOrders);
     }
 
-    throw new EntityNotFoundException("the user was not found with the email : " + userEmail);
+    throw new CustomCustomerException(CUSTOMER_NOT_FOUND,String.format("no user was found with email %s", userEmail));
 
   }
 }
