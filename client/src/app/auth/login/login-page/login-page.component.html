@@ -8,6 +8,10 @@
         <div class="text-center mb-4">
           <h1>Sign in</h1>
         </div>    
+
+        <div *ngIf="!isFormValid  && isFormSubmitted " class="alert alert-danger my-2" role="alert">
+          <div>Authentication failed</div>
+        </div>
   
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
@@ -17,20 +21,28 @@
             id="email"
             formControlName="email"
             placeholder="example@gmail.com"
+            required
           />
+          <div *ngIf="!isFormValid && isFormSubmitted && signInForm.controls['email'].invalid" class=" my-2 text-danger">
+            <div *ngIf="signInForm.controls['email'].errors?.['required']">Email is required.</div>
+            <div *ngIf="signInForm.controls['email'].errors?.['email']">Please enter a valid email.</div>
+          </div>
         </div>
-  
+
         <div class="mb-3">
+
           <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" formControlName="password"
-          />
+          <input type="password" class="form-control" id="password" formControlName="password" required/>
+          <div *ngIf="!isFormValid && isFormSubmitted && signInForm.controls['password'].invalid " class="my-2 text-danger">
+            <div *ngIf="signInForm.controls['password'].errors?.['required']">Password is required.</div>
+          </div>
         </div>
   
         <div class="justify-content-end mt-4 d-flex">
-          <button type="submit" class="btn btn-primary" [disabled]="signInForm.invalid">Validate</button>
+          <button type="submit" class="btn btn-primary">Validate</button>
         </div>
 
-        <div class="text-primary text-decoration-underline fw-semibold">
+        <div class="text-primary text-decoration-underline fw-semibold my-4">
           <p [routerLink]="['/auth/signup']">doesn't have an account ? go to sign up page !</p>
         </div>
 

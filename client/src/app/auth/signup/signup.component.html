@@ -2,35 +2,55 @@
 
 <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
 
-    <div class="container vh-100 d-flex justify-content-center align-items-center">
+    <div class="container d-flex justify-content-center align-items-center my-5">
         <div class="row justify-content-center w-100 w-md-50">
           <div class="col-12 col-md-8 border p-4 rounded">
             <div class="text-center mb-4">
               <h1>Sign up</h1>
             </div>    
 
+            <div *ngIf="!isFormValid  && isFormSubmitted " class="alert alert-danger my-2" role="alert">
+              <div>Registering failed</div>
+            </div>
+
             <div class="mb-3">
                 <label for="firstName" class="form-label">First name</label>
                 <input type="text" class="form-control" id="firstName" formControlName="firstName"
                 />
+
+                <div *ngIf="!isFormValid && isFormSubmitted && signUpForm.controls['firstName'].invalid" class=" my-2 text-danger">
+                  <div *ngIf="signUpForm.controls['firstName'].errors?.['required']">First name is required.</div>
+                  <div *ngIf="signUpForm.controls['firstName'].errors?.['minlength']">First name must contain at least 1 character</div>
+                </div>
               </div>
 
               <div class="mb-3">
                 <label for="lastName" class="form-label">Last name</label>
                 <input type="text" class="form-control" id="lastName" formControlName="lastName"
                 />
+                <div *ngIf="!isFormValid && isFormSubmitted && signUpForm.controls['lastName'].invalid" class=" my-2 text-danger">
+                  <div *ngIf="signUpForm.controls['lastName'].errors?.['required']">Last name is required.</div>
+                  <div *ngIf="signUpForm.controls['lastName'].errors?.['minlength']">Last name must contain at least 1 character</div>
+                </div>
               </div>
 
               <div class="mb-3">
                 <label for="birthDate" class="form-label">Birth date</label>
                 <input type="date" class="form-control" id="birthDate" formControlName="birthDate"
                 />
+                <div *ngIf="!isFormValid && isFormSubmitted && signUpForm.controls['birthDate'].invalid" class=" my-2 text-danger">
+                  <div *ngIf="signUpForm.controls['birthDate'].errors?.['required']">Birth date is required.</div>
+                </div>
               </div>
 
               <div class="mb-3">
                 <label for="phoneNumber" class="form-label">Phone number</label>
                 <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber"
                 />
+                <div *ngIf="!isFormValid && isFormSubmitted && signUpForm.controls['phoneNumber'].invalid" class=" my-2 text-danger">
+                  <div *ngIf="signUpForm.controls['phoneNumber'].errors?.['required']">Phone number is required.</div>
+                  <div *ngIf="signUpForm.controls['phoneNumber'].errors?.['minlength']">Phone number must contain 10 numbers.</div>
+                </div>
               </div>
       
             <div class="mb-3">
@@ -42,16 +62,24 @@
                 formControlName="email"
                 placeholder="example@gmail.com"
               />
+              <div *ngIf="!isFormValid && isFormSubmitted && signUpForm.controls['email'].invalid" class=" my-2 text-danger">
+                <div *ngIf="signUpForm.controls['email'].errors?.['required']">Email is required.</div>
+                <div *ngIf="signUpForm.controls['email'].errors?.['email']">That is not a correct email.</div>
+              </div>
             </div>
       
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
               <input type="password" class="form-control" id="password" formControlName="password"
               />
+              <div *ngIf="!isFormValid && isFormSubmitted && signUpForm.controls['password'].invalid" class=" my-2 text-danger">
+                <div *ngIf="signUpForm.controls['password'].errors?.['required']">Password is required.</div>
+                <div *ngIf="signUpForm.controls['password'].errors?.['minLength']">Password must contain between 6 to 20 characters.</div>
+              </div>
             </div>
       
             <div class="justify-content-end mt-4 d-flex">
-              <button type="submit" class="btn btn-primary" [disabled]="!signUpForm.valid">Validate</button>
+              <button type="submit" class="btn btn-primary">Validate</button>
             </div>
 
             <div class="text-primary text-decoration-underline fw-semibold">
