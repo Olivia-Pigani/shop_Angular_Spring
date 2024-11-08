@@ -26,7 +26,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="phoneNumber">Phone number</label>
-          <input type="password" class="form-control" id="phoneNumber" formControlName="phoneNumber">
+          <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber">
         </div>
       </div>
       <div class="row my-3">
@@ -34,6 +34,10 @@
           <label for="email">Email</label>
           <input type="email" class="form-control" id="email" formControlName="email">
         </div>
+      </div>
+
+      <div class="justify-content-end mt-4 d-flex">
+        <button type="submit" class="btn btn-warning" [disabled]="!customerInfoForm.valid">Update</button>
       </div>
     </form>
 

@@ -25,7 +25,12 @@ public customer: Signal<Customer | undefined> = toSignal(this.customerService.cu
 public pageTitle:string = 'My Account';
 public customerInfoForm!:FormGroup;
 
-public effectCustomer: EffectRef = effect(()=>this.customer());
+public displayCustomerDataEffect: EffectRef = effect(()=>{
+  const customerData: Customer | undefined = this.customer();
+  if(customerData){
+   this.updateFormWithCustomerData(customerData)
+  }
+});
 
 ngOnInit(): void {
 
@@ -37,6 +42,7 @@ ngOnInit(): void {
     email:  ['',[Validators.required,Validators.email]],
     password: ['',[Validators.required,Validators.minLength(6),Validators.maxLength(20)]]
   }) 
+
 }
 
 
@@ -45,6 +51,14 @@ public onSubmitCustomerInfo(){
     return;
   }
 }
-
+private updateFormWithCustomerData(customer: Customer) {
+    this.customerInfoForm.patchValue({
+      firstName: customer.firstName,
+      lastName: customer.lastName,
+      birthDate: customer.birthDate,
+      phoneNumber: customer.phoneNumber,
+      email: customer.email
+    });
+  } 
 
 }

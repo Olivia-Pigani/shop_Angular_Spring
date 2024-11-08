@@ -8,6 +8,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { CategoryComponent } from './categories/category.component';
 import { BasketPageComponent } from './basket/basket-page/basket-page.component';
 import { AccountPageComponent } from './customer/account-page/account-page.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
 
@@ -49,7 +50,8 @@ export const routes: Routes = [
     {
         path:"account",
         title: "Account",
-        component: AccountPageComponent
+        component: AccountPageComponent,
+        canActivate: [authGuard]
     },
     {
         path:"**",
