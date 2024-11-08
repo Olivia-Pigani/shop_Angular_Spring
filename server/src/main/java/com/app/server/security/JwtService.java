@@ -49,6 +49,27 @@ public class JwtService {
     return jwtExpiration;
   }
 
+
+
+  public boolean isTokenValid(String token, UserDetails userDetails) {
+    final String username = extractUsername(token);
+    return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+  }
+
+  public String getUserIdFromClaims(String token){
+
+    String tokenWithoutBearer = bearerRemover(token);
+
+    return Jwts
+      .parser()
+      .verifyWith(getKeySignature())
+      .build()
+      .parseSignedClaims(tokenWithoutBearer)
+      .getPayload()
+      .get("userId")
+      .toString();
+  }
+
   private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long expiration) {
     return Jwts
       .builder()
@@ -60,10 +81,6 @@ public class JwtService {
       .compact();
   }
 
-  public boolean isTokenValid(String token, UserDetails userDetails) {
-    final String username = extractUsername(token);
-    return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
-  }
 
   private Claims extractAllClaimsFromToken(String token) {
     return Jwts

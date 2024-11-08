@@ -26,7 +26,7 @@ export class AuthService {
     const token = localStorage.getItem('token');
     return signal(token ? this.jwtHelper.decodeToken(token) : null);
   }
-
+  
   //check if there is a token and if it's not outdated
   public get isLoggedIn():WritableSignal<boolean>{
   const token: string | null = localStorage.getItem("token");

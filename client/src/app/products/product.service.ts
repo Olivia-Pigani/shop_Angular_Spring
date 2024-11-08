@@ -17,7 +17,6 @@ export class ProductService {
 
   readonly allProducts$: Observable<Product[]> = this.http.get<Product[]>(this.productsUrl)
   .pipe(
-    tap(product=>console.log(JSON.stringify(product))),
     catchError(err => 
       this.handleError(err)
     ));

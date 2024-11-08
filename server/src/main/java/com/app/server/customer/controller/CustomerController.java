@@ -1,20 +1,16 @@
 package com.app.server.customer.controller;
 
-import com.app.server.customer.dto.SignInRequestDto;
-import com.app.server.customer.dto.SignInResponseDto;
-import com.app.server.customer.dto.SignUpRequestDto;
+import com.app.server.customer.dto.CustomerRequestDto;
+import com.app.server.customer.dto.CustomerResponseDto;
 import com.app.server.customer.service.CustomerService;
 import com.app.server.exception.CustomCustomerException;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("api/v1/customers")
 public class CustomerController {
 
   private final CustomerService customerService;
@@ -23,17 +19,16 @@ public class CustomerController {
     this.customerService = customerService;
   }
 
-  @PostMapping("/signup")
-  public ResponseEntity<String> signUp(@Valid @RequestBody SignUpRequestDto signUpRequestDto) throws Exception {
-    return new ResponseEntity<>(customerService.signup(signUpRequestDto), HttpStatus.CREATED);
+  @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+  @GetMapping("/{customerId}")
+  public ResponseEntity<CustomerResponseDto> getCustomerPersonalInfos(@PathVariable Long customerId, @RequestHeader(name="Authorization") String userToken) throws CustomCustomerException {
+    return new ResponseEntity<>(customerService.getCustomerPersonalInfos(customerId,userToken), HttpStatus.OK);
   }
 
-  @PostMapping("/signin")
-  public ResponseEntity<SignInResponseDto> signIn(@Valid @RequestBody SignInRequestDto signInRequestDto) throws CustomCustomerException {
-    return new ResponseEntity<>(customerService.signIn(signInRequestDto),HttpStatus.ACCEPTED);
+  @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+  @PutMapping("/{customerId}")
+  public ResponseEntity<CustomerResponseDto> updateCustomerPersonalInfos(@PathVariable Long customerId, @RequestHeader(name="Authorization") String userToken, @RequestBody CustomerRequestDto customerRequestDto) throws CustomCustomerException {
+    return new ResponseEntity<>(customerService.updateCustomerPersonalInfos(customerId,userToken,customerRequestDto), HttpStatus.ACCEPTED);
   }
-
-
-
 
 }

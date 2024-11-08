@@ -3,10 +3,7 @@ package com.app.server.customer.domain.entity;
 import com.app.server.order.domain.entity.Order;
 import com.app.server.product.domain.entity.Review;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,6 +17,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -98,7 +96,7 @@ public class Customer implements UserDetails {
 
   @ManyToOne
   @JoinColumn(name = "id_adress")
-  private Adress adress;
+  private Address adress;
 
   @OneToMany(mappedBy = "customer",
     fetch = FetchType.LAZY)

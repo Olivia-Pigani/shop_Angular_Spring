@@ -8,7 +8,8 @@ public class CustomCustomerException extends Exception{
   @Getter
   public enum CustomerError{
     CUSTOMER_NOT_FOUND("the customer was not found", 404),
-    CUSTOMER_ALREADY_EXISTS("the customer is already in the database", 409);
+    CUSTOMER_ALREADY_EXISTS("the customer is already in the database", 409),
+    CUSTOMER_PROHIBITED_REQUEST("the customer is not allowed to make that request", 401);
 
     private final String message;
     private final int code;
