@@ -23,7 +23,7 @@ public customerDetails$: Observable<Customer> = this.http.get<Customer>(`${this.
 );
 
 public updateCustomerById(updatedCustomerData: Customer):Observable<Customer>{
-  return this.http.put<Customer>(`${this.customerBaseUrl}/${this.customerId}`,updatedCustomerData);
+  return this.http.put<Customer>(`${this.customerBaseUrl}/${this.customerId}`,updatedCustomerData, {headers: this.header});
 }
 
 

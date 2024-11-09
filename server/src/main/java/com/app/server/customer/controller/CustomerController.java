@@ -4,6 +4,7 @@ import com.app.server.customer.dto.CustomerRequestDto;
 import com.app.server.customer.dto.CustomerResponseDto;
 import com.app.server.customer.service.CustomerService;
 import com.app.server.exception.CustomCustomerException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,8 +28,9 @@ public class CustomerController {
 
   @PreAuthorize("hasRole('ROLE_CUSTOMER')")
   @PutMapping("/{customerId}")
-  public ResponseEntity<CustomerResponseDto> updateCustomerPersonalInfos(@PathVariable Long customerId, @RequestHeader(name="Authorization") String userToken, @RequestBody CustomerRequestDto customerRequestDto) throws CustomCustomerException {
+  public ResponseEntity<CustomerResponseDto> updateCustomerPersonalInfos(@PathVariable Long customerId, @RequestHeader(name="Authorization") String userToken, @RequestBody @Valid CustomerRequestDto customerRequestDto) throws CustomCustomerException {
     return new ResponseEntity<>(customerService.updateCustomerPersonalInfos(customerId,userToken,customerRequestDto), HttpStatus.ACCEPTED);
   }
+
 
 }

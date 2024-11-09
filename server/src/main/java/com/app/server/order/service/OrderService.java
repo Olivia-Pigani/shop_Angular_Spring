@@ -1,6 +1,7 @@
 package com.app.server.order.service;
 
 import com.app.server.exception.CustomCustomerException;
+import com.app.server.order.domain.dto.OrderLineRequestDto;
 import com.app.server.order.domain.dto.OrderRequestDto;
 import com.app.server.order.domain.dto.OrderResponseDto;
 import com.app.server.order.domain.entity.Order;
@@ -33,7 +34,9 @@ public class OrderService {
     Long customerId = Long.valueOf(jwtService.getUserIdFromClaims(userToken));
 
     if (customerId != null) {
+
       Order order = orderRepository.save(orderMapper.toOrder(customerId, orderRequestDto));
+      
       return orderMapper.toOrderResponseDto(order);
     }
 
@@ -52,4 +55,5 @@ public class OrderService {
     throw new CustomCustomerException(CUSTOMER_NOT_FOUND,String.format("no user was found with email %s", customerId));
 
   }
+
 }

@@ -26,7 +26,7 @@ public class OrderController {
 
   @PreAuthorize("hasRole('ROLE_CUSTOMER')")
   @PostMapping
-  public ResponseEntity<OrderResponseDto> makeAOrders(@RequestHeader(name="Authorization") String userToken, @RequestBody @Valid OrderRequestDto orderRequestDto) throws CustomCustomerException {
+  public ResponseEntity<OrderResponseDto> makeAOrder(@RequestHeader(name="Authorization") String userToken, @RequestBody @Valid OrderRequestDto orderRequestDto) throws CustomCustomerException {
     return new ResponseEntity<>(orderService.makeAOrder(userToken,orderRequestDto), HttpStatus.CREATED);
   }
 

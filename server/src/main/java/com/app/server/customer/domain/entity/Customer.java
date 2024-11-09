@@ -95,8 +95,8 @@ public class Customer implements UserDetails {
   }
 
   @ManyToOne
-  @JoinColumn(name = "id_adress")
-  private Address adress;
+  @JoinColumn(name = "id_address")
+  private Address address;
 
   @OneToMany(mappedBy = "customer",
     fetch = FetchType.LAZY)

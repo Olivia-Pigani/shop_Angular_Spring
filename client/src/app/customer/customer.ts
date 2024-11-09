@@ -10,5 +10,4 @@ phoneNumber:string,
 
 email:string
 
-
 }

@@ -51,6 +51,7 @@ public class CustomerService {
     Optional<Customer> customerOpt = customerRepository.findById(idFromClaims);
 
     if (customerOpt.isPresent()){
+
       Customer customer = customerOpt.get();
 
       customer.setFirstName(customerRequestDto.firstName());
@@ -62,6 +63,8 @@ public class CustomerService {
       return CustomerMapper.toCustomerResponseDto(customerRepository.save(customer));
 
     }
+
+
     throw new CustomCustomerException(CUSTOMER_NOT_FOUND,String.format("no user was found with id %d", customerId));
 
   }

@@ -26,5 +26,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
       .body(customCategoryException.getMessage());
   }
 
-
+  @ExceptionHandler(CustomAddressException.class)
+  public ResponseEntity<Object> handleCustomAddressException(CustomAddressException customAddressException) {
+    return ResponseEntity.status(customAddressException.getError().getCode())
+      .body(customAddressException.getMessage());
+  }
 }

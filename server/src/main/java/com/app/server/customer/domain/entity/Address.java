@@ -1,10 +1,7 @@
 package com.app.server.customer.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
@@ -13,7 +10,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Table(name = "adress")
+@Setter
+@Table(name = "address")
 public class Address {
 
     @Id
@@ -28,6 +26,6 @@ public class Address {
 
     private String country;
 
-    @OneToMany(mappedBy = "adress")
+    @OneToMany(mappedBy = "address")
     private Set<Customer> customerList;
 }
