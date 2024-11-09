@@ -26,6 +26,11 @@ public updateAddressByCustomerId(updatedAddressData: Address):Observable<Address
   return this.http.put<Address>(`${this.addressUrl}/customers/${this.customerId}`,updatedAddressData, {headers: this.header});
 }
 
+public saveAddressByCustomerId(addressData: Address):Observable<Address>{
+  return this.http.post<Address>(`${this.addressUrl}/customers/${this.customerId}`,addressData, {headers: this.header});
+}
+
+
 private get customerId(): string | null {
   const token = localStorage.getItem("token");
   if (token) {

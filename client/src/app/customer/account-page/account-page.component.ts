@@ -135,15 +135,32 @@ export class AccountPageComponent implements OnInit {
       this.isAddressFormValid = false;
       return;
     }
-    const updatedAddressData = this.addressInfoForm.value as Address;
+    const addressData = this.addressInfoForm.value as Address;
 
-    if (this.isTheSameAddressData(updatedAddressData)) {
+    if (this.isTheSameAddressData(addressData)) {
       this.isAddressFormValid = false;
       return;
     }
 
+    //if customer do not have address yet: save, if not: update
+    if(!this.address()){
+      this.addressService.saveAddressByCustomerId(addressData)
+      .pipe(
+        catchError(() => {
+          this.isAddressFormValid = false;
+          return EMPTY;
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => {
+        this.isAddressFormValid = true;
+        this.isAddressFormSubmitted = true;
+      });
+      return;
+    }
+
     this.addressService
-      .updateAddressByCustomerId(updatedAddressData)
+      .updateAddressByCustomerId(addressData)
       .pipe(
         catchError(() => {
           this.isAddressFormValid = false;

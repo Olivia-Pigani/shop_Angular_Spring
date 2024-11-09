@@ -1,6 +1,6 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { NavbarComponent } from "../../shared/navbar/navbar.component";
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { FooterComponent } from "../../shared/footer/footer.component";
 import {ReactiveFormsModule, FormBuilder, Validators,FormGroup} from '@angular/forms';
 import { AuthService } from '../auth.service';
@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 export class SignupComponent implements OnInit {
 private formBuilder:FormBuilder = inject(FormBuilder);
 private authService: AuthService = inject(AuthService);
+private router:Router = inject(Router);
 private destroyRef: DestroyRef = inject(DestroyRef);
 public signUpForm!: FormGroup;
 public isFormValid:boolean = true;
@@ -53,7 +54,8 @@ public onSubmit(){
     takeUntilDestroyed(this.destroyRef)
   ).subscribe(()=>{
     this.isFormValid = true;
-  });
+   });
+   this.router.navigate(['/auth/signin'])
 }
 
 }
