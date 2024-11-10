@@ -6,6 +6,7 @@ import { AddressFormComponent } from "../../customer/address-form/address-form.c
 import { AddressService } from '../../customer/address.service';
 import { Address } from '../../customer/address';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { OrderService } from '../../orders/order.service';
 
 @Component({
   selector: 'app-basket-total',
@@ -17,6 +18,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class BasketTotalComponent {
 private basketService: BasketService = inject(BasketService);
 private addressService:AddressService = inject(AddressService);
+private orderService:OrderService = inject(OrderService);
 public basketItemList:Signal<BasketItem[]> = this.basketService.basketItemList.asReadonly();
 public customerAddress: Signal<Address | undefined> = toSignal(
   this.addressService.addressDetails$
@@ -27,13 +29,15 @@ public deliveryFees:Signal<number> = this.basketService.deliveryFees;
 public totalPrice:Signal<number> = this.basketService.totalPrice;
 public showAddressForm:boolean = true;
 public isAddressVerified: boolean = false;
+public isOrderHasBeenMade: boolean = false;
 
 public onCheckoutSubmit():void{
-  if(!this.isAddressVerified){
+  if(!this.isAddressVerified || !this.customerAddress()){
     return;
   }
+  this.orderService.makeAnOrder(this.basketItemList())
   console.log("order has been made")
-
+  this.isOrderHasBeenMade = true;
 }
 
 public isAddressVerifiedChangeStatus():void{
@@ -45,4 +49,9 @@ public isAddressVerifiedChangeStatus():void{
     this.showAddressForm = true;
   }
 }
+
+public closeOrderSuccessMsg():void{
+  this.isOrderHasBeenMade = false;
+}
+
 }
