@@ -44,7 +44,7 @@ export const routes: Routes = [
     },
     {
         path:"auth/signup",
-        title: "Sign in",
+        title: "Sign up",
         component: SignupComponent
     },
     {

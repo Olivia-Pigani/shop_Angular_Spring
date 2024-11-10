@@ -44,7 +44,7 @@ export class LoginPageComponent implements OnInit{
     }
     this.authService.login(this.signInForm.value as LoginRequest)
     .pipe(
-      catchError((error)=>{
+      catchError(()=>{
         this.isFormValid = false;
         return EMPTY;
       }

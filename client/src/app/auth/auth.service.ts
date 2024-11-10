@@ -43,7 +43,7 @@ export class AuthService {
 
       //if 401
       catchError(error => {
-       if(error === HttpStatusCode.Unauthorized){
+       if(error.status === HttpStatusCode.Unauthorized){
           console.error('invalid credentials');
         }
         return of();
@@ -63,26 +63,8 @@ export class AuthService {
     this.router.navigate(["/homepage"])
   }
 
-  public signUp(signUpRequest: SignUpRequest):Observable<void>{
-    return this.http.post<void>(`${this.authUrl}/signup`,signUpRequest)
-    .pipe(
-
-      catchError(error => {
-          if(error === HttpStatusCode.Conflict){ //if 409
-            console.error("this email already exist")
-            this.router.navigate(["/auth/signin"]);
-          } if (error == HttpStatusCode.BadRequest) { //if 400
-            console.error("something went wrong during sign up attempt")
-          } 
-          return of();
-        }),
-
-        tap(()=>{
-          console.log("there is a new user registered !");
-          this.router.navigate(["/auth/signin"]);
-        }
-        )
-    )
+  public signUp(signUpRequest: SignUpRequest):Observable<string>{
+    return this.http.post<string>(`${this.authUrl}/signup`,signUpRequest,{ responseType: 'text' as 'json' }) as Observable<string> //because the back retrun a text and here, we expect a json type
   }
   
 
