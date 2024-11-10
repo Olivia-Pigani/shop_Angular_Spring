@@ -71,58 +71,7 @@
       </div>
     </form>
 
-    
-        <!-------------------------------------------------------------------------------ADDRESS FORM--------------------------------------------------------------------------------->
-
-    <form [formGroup]="addressInfoForm" (ngSubmit)="onSubmitAddressInfo()" class="my-4">
-        <h3>Postal adress</h3>
-
-        <div *ngIf="isAddressFormValid && isAddressFormSubmitted" class=" my-2 alert alert-success alert-dismissible fade show d-flex justify-content-center align-items-center" role="alert">
-          Address postal informations has been changed correctly !
-          <button (click)="closeAddressFormSuccessMsg()" type="button" class="close btn btn-outline-infos" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div class="row my-3">
-          <div class="form-group col-md-6">
-            <label for="country">Country</label>
-            <input formControlName="country" type="text" class="form-control" id="country" >
-            <div *ngIf="!isAddressFormValid && addressInfoForm && addressInfoForm.controls['country'].invalid" class=" my-2 text-danger">
-              <div *ngIf="addressInfoForm.controls['country'].errors?.['required']">Country is required.</div>
-            </div>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="city">City</label>
-            <input formControlName="city" type="text" class="form-control" id="city" >
-              <div *ngIf="!isAddressFormValid && addressInfoForm && addressInfoForm.controls['city'].invalid" class=" my-2 text-danger">
-              <div *ngIf="addressInfoForm.controls['city'].errors?.['required']">City is required.</div>
-            </div>
-          </div>
-        </div>
-        <div class="row my-3">
-          <div class="form-group col-md-6">
-            <label for="street">Street</label>
-            <input formControlName="street" type="text" class="form-control" id="street" >
-            <div *ngIf="!isAddressFormValid && addressInfoForm && addressInfoForm.controls['street'].invalid" class=" my-2 text-danger">
-              <div *ngIf="addressInfoForm.controls['street'].errors?.['required']">Street is required.</div>
-            </div>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="houseNumber">House number</label>
-            <input formControlName="houseNumber" type="text" class="form-control" id="houseNumber" >
-            <div *ngIf="!isAddressFormValid && addressInfoForm && addressInfoForm.controls['houseNumber'].invalid" class=" my-2 text-danger">
-              <div *ngIf="addressInfoForm.controls['houseNumber'].errors?.['required']">house number is required.</div>
-            </div>
-          </div>
-        </div>
-        
-      <div class="justify-content-end mt-4 d-flex">
-        <button type="submit" class="btn btn-warning" [disabled]="!addressInfoForm.touched || !addressInfoForm.dirty">Update</button>
-        </div>
-      </form>
-
-
+  <app-address-form></app-address-form>
       
       <app-order-list></app-order-list>
 

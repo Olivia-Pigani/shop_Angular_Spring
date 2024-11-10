@@ -27,6 +27,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import { AuthService } from '../../auth/auth.service';
 import { Address } from '../address';
 import { AddressService } from '../address.service';
+import { AddressFormComponent } from '../address-form/address-form.component';
 
 @Component({
   selector: 'app-account-page',
@@ -38,6 +39,7 @@ import { AddressService } from '../address.service';
     OrderListComponent,
     ReactiveFormsModule,
     CommonModule,
+    AddressFormComponent,
   ],
   templateUrl: './account-page.component.html',
   styleUrl: './account-page.component.css',
@@ -45,13 +47,9 @@ import { AddressService } from '../address.service';
 export class AccountPageComponent implements OnInit {
   private formBuilder: FormBuilder = inject(FormBuilder);
   private customerService: CustomerService = inject(CustomerService);
-  private addressService: AddressService = inject(AddressService);
   private destroyRef: DestroyRef = inject(DestroyRef);
   public customer: Signal<Customer | undefined> = toSignal(
     this.customerService.customerDetails$
-  );
-  public address: Signal<Address | undefined> = toSignal(
-    this.addressService.addressDetails$
   );
   public pageTitle: string = 'My Account';
 
@@ -61,20 +59,10 @@ export class AccountPageComponent implements OnInit {
   public isCustomerFormValid: boolean = true;
   public isCustomerFormSubmitted: boolean = false;
 
-  //about address form
-  public addressInfoForm!: FormGroup;
-  public initialAddressData: Address | undefined;
-  public isAddressFormValid: boolean = true;
-  public isAddressFormSubmitted: boolean = false;
-
   public displayCustomerDataEffect: EffectRef = effect(() => {
     this.initialCustomerData = this.customer();
     if (this.initialCustomerData) {
       this.updateFormWithCustomerData(this.initialCustomerData);
-    }
-    this.initialAddressData = this.address();
-    if (this.initialAddressData) {
-      this.updateFormWithAddressData(this.initialAddressData);
     }
   });
 
@@ -92,13 +80,6 @@ export class AccountPageComponent implements OnInit {
         ],
       ],
       email: ['', [Validators.required, Validators.email]],
-    });
-
-    this.addressInfoForm = this.formBuilder.group({
-      country: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      street: ['', [Validators.required]],
-      houseNumber: ['', [Validators.required]],
     });
   }
 
@@ -129,69 +110,14 @@ export class AccountPageComponent implements OnInit {
       });
   }
 
-  
-  public onSubmitAddressInfo() {
-    if (!this.addressInfoForm.valid) {
-      this.isAddressFormValid = false;
-      return;
-    }
-    const addressData = this.addressInfoForm.value as Address;
-
-    if (this.isTheSameAddressData(addressData)) {
-      this.isAddressFormValid = false;
-      return;
-    }
-
-    //if customer do not have address yet: save, if not: update
-    if(!this.address()){
-      this.addressService.saveAddressByCustomerId(addressData)
-      .pipe(
-        catchError(() => {
-          this.isAddressFormValid = false;
-          return EMPTY;
-        }),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(() => {
-        this.isAddressFormValid = true;
-        this.isAddressFormSubmitted = true;
-      });
-      return;
-    }
-
-    this.addressService
-      .updateAddressByCustomerId(addressData)
-      .pipe(
-        catchError(() => {
-          this.isAddressFormValid = false;
-          return EMPTY;
-        }),
-        takeUntilDestroyed(this.destroyRef)
-      )
-      .subscribe(() => {
-        this.isAddressFormValid = true;
-        this.isAddressFormSubmitted = true;
-      });
-  }
-
   public closeCustomerFormSuccessMsg(): void {
     this.isCustomerFormSubmitted = false;
-  }
-  public closeAddressFormSuccessMsg(): void {
-    this.isAddressFormSubmitted = false;
   }
 
   private isTheSameCustomerData(updatedCustomerData: Customer): boolean {
     return (
       JSON.stringify(this.initialCustomerData) ===
       JSON.stringify(updatedCustomerData)
-    );
-  }
-
-  private isTheSameAddressData(updatedAddressData: Address): boolean {
-    return (
-      JSON.stringify(this.initialAddressData) ===
-      JSON.stringify(updatedAddressData)
     );
   }
 
@@ -202,15 +128,6 @@ export class AccountPageComponent implements OnInit {
       birthDate: customer.birthDate,
       phoneNumber: customer.phoneNumber,
       email: customer.email,
-    });
-  }
-
-  private updateFormWithAddressData(address: Address) {
-    this.addressInfoForm.patchValue({
-      country:address.country,
-      city:address.city,
-      street:address.street,
-      houseNumber:address.houseNumber
     });
   }
 }

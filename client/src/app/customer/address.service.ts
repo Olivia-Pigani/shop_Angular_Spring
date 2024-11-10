@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, WritableSignal, inject, signal } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpErrorService } from '../utils/http-error.service';
 import { Observable, catchError, tap, throwError } from 'rxjs';
@@ -13,7 +13,6 @@ private http:HttpClient = inject(HttpClient);
 private addressUrl:string = 'http://localhost:8586/api/v1/addresses';
 private httpErrorService:HttpErrorService = inject(HttpErrorService);
 private jwtHelper: JwtHelperService = inject(JwtHelperService);
-
 
 public addressDetails$: Observable<Address> = this.http.get<Address>(`${this.addressUrl}/customers/${this.customerId}`, {headers:this.header})
 .pipe(

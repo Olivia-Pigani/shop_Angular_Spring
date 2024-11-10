@@ -74,14 +74,15 @@ export class SignupComponent implements OnInit {
       .signUp(this.signUpForm.value as SignUpRequest)
       .pipe(
         catchError((error) => {
-
           // if 409
           if (error.status === HttpStatusCode.Conflict) {
+            console.error('this email already exist');
             this.router.navigate(['/auth/signin']);
           }
 
           //if 400
           if (error == HttpStatusCode.BadRequest) {
+            console.error('something went wrong during sign up attempt');
           }
           this.isFormValid = false;
           return EMPTY;
