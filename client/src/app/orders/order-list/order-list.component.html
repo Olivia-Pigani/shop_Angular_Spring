@@ -1,4 +1,52 @@
-<h2 class="text-decoration-underline mb-4">My Orders</h2>
+<h2 class="text-decoration-underline mb-4 text-center">My Orders</h2>
 
-<app-order-card *ngFor="let order of orderList()" [order]="order"></app-order-card>
+<div *ngFor="let order of orderList(); let i = index" class="my-3">
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" [id]="i">
+        <h5 class="mb-0">
+          <button
+            class="btn btn-link w-100 text-decoration-none"
+            data-toggle="collapse"
+            [attr.data-target]="'#collapse' + i"
+            aria-expanded="true"
+            [attr.aria-controls]="'collapse' + i"
+          >
+            <div
+              class="row justify-content-center align-items-center text-center text-md-left"
+            >
+              <div class="col-12 col-md-3 mb-2 mb-md-0">
+                <i
+                  class="bi bi-plus-circle"
+                  style="font-size: 2rem; color: rgb(0, 0, 0)"
+                ></i>
+              </div>
+              <div class="col-12 col-md-3 mb-2 mb-md-0">
+                <p class="text-dark fw-bolder">ref: {{ order.reference }}</p>
+              </div>
+              <div class="col-12 col-md-3 mb-2 mb-md-0">
+                <p class="text-dark fw-bolder">date: {{ order.orderDate }}</p>
+              </div>
+              <div class="col-12 col-md-3">
+                <p class="text-dark fw-bolder">
+                  total: {{ order.totalAmount }}€
+                </p>
+              </div>
+            </div>
+          </button>
+        </h5>
+      </div>
 
+      <div
+        [id]="'collapse' + i"
+        class="collapse"
+        [attr.aria-labelledby]="'heading' + i"
+        data-parent="#accordion"
+      >
+        <div class="card-body">
+          <app-order-card [order]="order"></app-order-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
