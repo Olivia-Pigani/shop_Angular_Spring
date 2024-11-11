@@ -15,18 +15,18 @@ import lombok.NoArgsConstructor;
 @Table(name = "orderline")
 public class OrderLine {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private double quantity;
+  private double quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "id_order")
-    private Order order;
+  @ManyToOne
+  @JoinColumn(name = "id_order")
+  private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "id_product")
-    private Product product;
+  @ManyToOne
+  @JoinColumn(name = "id_product")
+  private Product product;
 
 }

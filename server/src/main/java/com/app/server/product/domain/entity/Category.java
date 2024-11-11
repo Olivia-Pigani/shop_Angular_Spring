@@ -17,13 +17,13 @@ import java.util.Set;
 @Table(name = "category")
 public class Category {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private String name;
+  private String name;
 
-    @OneToMany(mappedBy = "category",
+  @OneToMany(mappedBy = "category",
     fetch = FetchType.LAZY)
-    private Set<Product> productSet;
+  private Set<Product> productSet;
 }

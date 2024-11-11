@@ -12,7 +12,13 @@ public record OrderResponseDto(
 
   Long userId,
 
+  String reference,
+
   LocalDate orderDate,
+
+  double taxAmount,
+
+  double deliveryPrice,
 
   double totalAmount,
 

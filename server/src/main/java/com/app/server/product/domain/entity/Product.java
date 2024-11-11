@@ -15,33 +15,33 @@ import java.util.List;
 @Table(name = "product")
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(unique = true)
-    private String name;
+  @Column(unique = true)
+  private String name;
 
-    private String description;
+  private String description;
 
-    private String image;
+  private String image;
 
-    private double availableQuantity;
+  private double availableQuantity;
 
-    private double price;
+  private double price;
 
-    @OneToMany(mappedBy = "product",
+  @OneToMany(mappedBy = "product",
     fetch = FetchType.LAZY,
     cascade = CascadeType.ALL,
     orphanRemoval = true)
-    private List<Review> reviewList;
+  private List<Review> reviewList;
 
-    @ManyToOne
-    @JoinColumn(name = "id_category")
-    private Category category;
+  @ManyToOne
+  @JoinColumn(name = "id_category")
+  private Category category;
 
-    @OneToMany(mappedBy = "product",
+  @OneToMany(mappedBy = "product",
     fetch = FetchType.LAZY)
-    private List<OrderLine> orderLineList;
+  private List<OrderLine> orderLineList;
 
 }

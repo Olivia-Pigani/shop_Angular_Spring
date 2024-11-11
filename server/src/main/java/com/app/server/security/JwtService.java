@@ -33,8 +33,8 @@ public class JwtService {
     return extractClaim(token, Claims::getSubject);
   }
 
-  public String bearerRemover(String tokenWithBearer){
-    return  tokenWithBearer.substring(7);
+  public String bearerRemover(String tokenWithBearer) {
+    return tokenWithBearer.substring(7);
   }
 
   public String generateToken(UserDetails userDetails) {
@@ -50,13 +50,12 @@ public class JwtService {
   }
 
 
-
   public boolean isTokenValid(String token, UserDetails userDetails) {
     final String username = extractUsername(token);
     return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
   }
 
-  public String getUserIdFromClaims(String token){
+  public String getUserIdFromClaims(String token) {
 
     String tokenWithoutBearer = bearerRemover(token);
 

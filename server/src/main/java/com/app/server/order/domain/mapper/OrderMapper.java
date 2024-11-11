@@ -23,16 +23,18 @@ public class OrderMapper {
     this.orderLineMapper = orderLineMapper;
   }
 
-  public Order toOrder(Long customerId, OrderRequestDto orderRequestDto){
+  public Order toOrder(Long customerId, OrderRequestDto orderRequestDto) {
 
-    Order order =  Order.builder()
-      .customer(Customer.builder().id(customerId).build())
+    Order order = Order.builder()
       .orderDate(LocalDate.now())
       .reference(UUID.randomUUID().toString())
       .totalAmount(orderRequestDto.totalAmount())
+      .tax(orderRequestDto.tax())
+      .deliveryPrice(orderRequestDto.deliveryPrice())
+      .customer(Customer.builder().id(customerId).build())
       .build();
 
-    List<OrderLine> orderLineList = orderLineMapper.toOrderLineList(orderRequestDto.orderLineRequestDtoList(),order);
+    List<OrderLine> orderLineList = orderLineMapper.toOrderLineList(orderRequestDto.orderLineRequestDtoList(), order);
 
     order.setOrderLineList(orderLineList);
 
@@ -40,20 +42,21 @@ public class OrderMapper {
 
   }
 
-  public OrderResponseDto toOrderResponseDto(Order order){
-    log.info("order orderlines : "+ order.getOrderLineList());
+  public OrderResponseDto toOrderResponseDto(Order order) {
     List<OrderLineResponseDto> orderLineResponseDtoList = orderLineMapper.toOrderLineResponseDtoList(order.getOrderLineList());
-    log.info("orderlineresponseqdsqdq = "+orderLineResponseDtoList.toString());
     return OrderResponseDto.builder()
       .orderId(order.getId())
       .userId(order.getCustomer().getId())
+      .reference(order.getReference())
       .orderDate(order.getOrderDate())
+      .taxAmount(order.getTax())
+      .deliveryPrice(order.getDeliveryPrice())
       .totalAmount(order.getTotalAmount())
       .orderLineResponseDtoList(orderLineResponseDtoList)
       .build();
   }
 
-  public List<OrderResponseDto> toOrderResponseDtoList(List<Order> orderList){
+  public List<OrderResponseDto> toOrderResponseDtoList(List<Order> orderList) {
     return orderList.stream()
       .map(this::toOrderResponseDto)
       .toList();

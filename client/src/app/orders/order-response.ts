@@ -1,21 +1,20 @@
-import { Orderline } from "./orderline";
-import { OrderlineResponse } from "./orderline-response";
+import { Orderline } from './orderline';
+import { OrderlineResponse } from './orderline-response';
 
 export interface OrderResponse {
+  orderId: number;
 
-     orderId: number,
+  userId: number;
 
-     userId: number,
+  reference: string;
 
-     reference:string,
-  
-     orderDate: Date,
+  orderDate: Date;
 
-     taxAmount:number,
+  taxAmount: number;
 
-     deliveryPrice:number,
-    
-     totalAmount: number,
-  
-     orderLineResponseDtoList: OrderlineResponse[]
+  deliveryPrice: number;
+
+  totalAmount: number;
+
+  orderLineResponseDtoList: OrderlineResponse[];
 }

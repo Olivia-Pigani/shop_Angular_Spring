@@ -4,10 +4,8 @@ import {
   EffectRef,
   OnInit,
   Signal,
-  WritableSignal,
   effect,
   inject,
-  signal,
 } from '@angular/core';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { OrderCardComponent } from '../../orders/order-card/order-card.component';
@@ -20,13 +18,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { Customer } from '../customer';
-import { EMPTY, Observable, catchError } from 'rxjs';
+import { EMPTY, catchError } from 'rxjs';
 import { CustomerService } from '../customer.service';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { CommonModule, JsonPipe } from '@angular/common';
-import { AuthService } from '../../auth/auth.service';
-import { Address } from '../address';
-import { AddressService } from '../address.service';
+import { CommonModule } from '@angular/common';
 import { AddressFormComponent } from '../address-form/address-form.component';
 
 @Component({

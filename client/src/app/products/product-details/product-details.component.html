@@ -1,46 +1,63 @@
 <app-navbar></app-navbar>
 
-
-  <div class="container">
+<div class="container">
   <div class="row">
     <ng-container *ngIf="product; else errorPrinter">
+      <div class="col-12 col-sm-6 my-5">
+        <img
+          src="{{ product.image }}"
+          class="img-fluid"
+          alt="{{ product.name }} image"
+        />
+      </div>
 
-    <div class="col-12 col-sm-6 my-5">
-        <img src={{product.image}} class="img-fluid" alt="{{product.name}} image">
-    </div>
+      <div class="col-12 col-sm-6 my-5">
+        <h1>{{ product.name }}</h1>
+        <p>{{ product.description }}</p>
+        <p>in stock : {{ product.availableQuantity }}</p>
+        <p class="fw-bold fs-3">{{ product.price }} €</p>
 
-    <div class="col-12 col-sm-6 my-5">
-        <h1>{{product.name}}</h1>
-        <p>{{product.description}}</p>
-        <p>in stock : {{product.availableQuantity}}</p>
-        <p class="fw-bold fs-3 ">{{product.price}} €</p>
+        <select
+          *ngIf="product.availableQuantity"
+          [formControl]="quantity"
+          class="form-select w-50 my-3"
+          id="floatingSelect"
+          aria-label="select the quantity of product to put in basket"
+        >
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
 
-          <select *ngIf="product.availableQuantity" [formControl]="quantity"  class="form-select w-50 my-3" id="floatingSelect" aria-label="select the quantity of product to put in basket">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
+        <button
+          *ngIf="product.availableQuantity"
+          type="button"
+          class="btn btn-success"
+          [routerLink]="'/basket'"
+          (click)="addToBasket(product)"
+        >
+          Add to basket
+        </button>
 
-
-        <button *ngIf="product.availableQuantity" type="button" class="btn btn-success" [routerLink]="'/basket'" (click)="addToBasket(product)">Add to basket</button>
-      
-      <ng-container *ngIf="product.reviews; else noReviewMsg">
-      <app-review-card *ngFor="let review of product.reviews" [review]="review"></app-review-card>
-      </ng-container>
-
-    </div>
-  </ng-container>
+        <ng-container *ngIf="product.reviews; else noReviewMsg">
+          <app-review-card
+            *ngFor="let review of product.reviews"
+            [review]="review"
+          ></app-review-card>
+        </ng-container>
+      </div>
+    </ng-container>
   </div>
 
   <ng-template #errorPrinter>
     <div class="alert alert-danger my-4 text-center" role="alert">
-      <p>{{errorMessage}}</p>
+      <p>{{ errorMessage }}</p>
     </div>
   </ng-template>
 
   <ng-template #noReviewMsg>
-      <p>There is no reviews yet for this product</p>
+    <p>There is no reviews yet for this product</p>
   </ng-template>
-
+</div>

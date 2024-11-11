@@ -17,12 +17,10 @@ import { Observable, forkJoin, map } from 'rxjs';
   templateUrl: './order-card.component.html',
   styleUrl: './order-card.component.css',
 })
-export class OrderCardComponent  {
+export class OrderCardComponent {
   @Input() order!: OrderResponse;
   private customerService: CustomerService = inject(CustomerService);
   public customer: Signal<Customer | undefined> = toSignal(
     this.customerService.customerDetails$
   );
-
-
 }

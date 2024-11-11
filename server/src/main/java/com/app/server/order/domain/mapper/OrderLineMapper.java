@@ -32,9 +32,9 @@ public class OrderLineMapper {
       Product product = productOpt.get();
 
       return OrderLine.builder()
+        .quantity(orderLineRequestDto.quantity())
         .order(order)
         .product(product)
-        .quantity(orderLineRequestDto.quantity())
         .build();
 
     }
@@ -45,6 +45,8 @@ public class OrderLineMapper {
 
     return OrderLineResponseDto.builder()
       .productId(orderLine.getProduct().getId())
+      .productName(orderLine.getProduct().getName())
+      .productUnitPrice(orderLine.getProduct().getPrice())
       .quantity(orderLine.getQuantity())
       .build();
 

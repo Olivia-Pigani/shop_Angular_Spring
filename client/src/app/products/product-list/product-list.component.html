@@ -1,22 +1,21 @@
 <div class="container my-3">
+  <h1>{{ pageTitle }}</h1>
 
-  <h1>{{pageTitle}}</h1>
-
-<ng-container *ngIf="productList$ | async as productList ; else waitingPrinter">
-  <div class="row">
-    <app-product-card
-      *ngFor="let product of productList"
-      [product]="product"
-      class="col-lg-4 col-md-6 col-sm-12 my-3"
-    ></app-product-card>
-  </div>
-</ng-container>
-
-<ng-template #waitingPrinter>
-  <div class="text-center vh-100">
-    <div class="spinner-border" role="status">
+  <ng-container
+    *ngIf="productList$ | async as productList; else waitingPrinter"
+  >
+    <div class="row">
+      <app-product-card
+        *ngFor="let product of productList"
+        [product]="product"
+        class="col-lg-4 col-md-6 col-sm-12 my-3"
+      ></app-product-card>
     </div>
-  </div>
-</ng-template>
+  </ng-container>
 
+  <ng-template #waitingPrinter>
+    <div class="text-center vh-100">
+      <div class="spinner-border" role="status"></div>
+    </div>
+  </ng-template>
 </div>

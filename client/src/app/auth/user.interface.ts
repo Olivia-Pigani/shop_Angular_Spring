@@ -1,13 +1,11 @@
 export interface User {
-   
-    firstName: string,
-  
-    lastName: string,
+  firstName: string;
 
-    birthDate : Date,
+  lastName: string;
 
-    phoneNumber : string
+  birthDate: Date;
 
-    role: string
-  
+  phoneNumber: string;
+
+  role: string;
 }

@@ -38,8 +38,8 @@ public class ProductController {
   }
 
   @GetMapping("/categories/{categoryName}")
-  public ResponseEntity<List<ProductResponseDto>> getAllProductsByCategory(@PathVariable String categoryName){
-    return new ResponseEntity<>(productService.getAllProductsByCategory(categoryName),HttpStatus.OK);
+  public ResponseEntity<List<ProductResponseDto>> getAllProductsByCategory(@PathVariable String categoryName) {
+    return new ResponseEntity<>(productService.getAllProductsByCategory(categoryName), HttpStatus.OK);
   }
 
 

@@ -16,8 +16,6 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
-      
-
         <li class="nav-item me-3">
           <a class="nav-link position-relative" [routerLink]="'/basket'">
             <i
@@ -27,7 +25,7 @@
             <span
               class="position-absolute start-100 translate-middle badge rounded-pill bg-warning text-dark"
             >
-            {{totalItemInBasket()}}
+              {{ totalItemInBasket() }}
             </span>
           </a>
         </li>
@@ -41,8 +39,6 @@
         <li class="nav-item me-3" *ngIf="isLoggedIn()">
           <a class="nav-link" [routerLink]="'/account'">My account</a>
         </li>
-
-
 
         <li class="nav-item dropdown me-3">
           <a
@@ -82,7 +78,6 @@
             </li>
           </ul>
         </li>
-
       </ul>
 
       <div class="d-flex ms-auto" role="search">
@@ -91,22 +86,26 @@
           type="search"
           placeholder="Search"
           aria-label="Search"
-          [(ngModel)]= searchText
+          [(ngModel)]="searchText"
         />
-        
+
         <ng-content *ngIf="searchText">
-        <div class="product-search-result position-absolute">
-          <ul class="list-unstyled text-center">
-            <li class="border py-2" *ngFor="let product of productList | searchpipe: searchText">
-              <a class="text-decoration-none text-dark" (click)="onProductSelected(product.id)">{{product.name}}</a>
-            </li>
-          </ul>
-        </div>
-      </ng-content>
+          <div class="product-search-result position-absolute">
+            <ul class="list-unstyled text-center">
+              <li
+                class="border py-2"
+                *ngFor="let product of productList | searchpipe : searchText"
+              >
+                <a
+                  class="text-decoration-none text-dark"
+                  (click)="onProductSelected(product.id)"
+                  >{{ product.name }}</a
+                >
+              </li>
+            </ul>
+          </div>
+        </ng-content>
       </div>
-
-
-
     </div>
   </div>
 </nav>

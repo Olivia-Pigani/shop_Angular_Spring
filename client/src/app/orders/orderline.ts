@@ -1,7 +1,5 @@
 export interface Orderline {
+  productId: number;
 
-    productId:number,
-
-    quantity:number
-
+  quantity: number;
 }

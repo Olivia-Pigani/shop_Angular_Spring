@@ -1,15 +1,13 @@
 export interface SignUpRequest {
+  firstName: string;
 
-    firstName: string,
-  
-    lastName: string,
+  lastName: string;
 
-    birthDate: Date,
+  birthDate: Date;
 
-    phoneNumber: string,
-  
-    email: string,
-  
-    password: string
+  phoneNumber: string;
 
+  email: string;
+
+  password: string;
 }

@@ -1,60 +1,60 @@
-import { Component, DestroyRef, OnInit, Signal, effect, inject } from '@angular/core';
-import { NavbarComponent } from "../../../shared/navbar/navbar.component";
-import { FooterComponent } from "../../../shared/footer/footer.component";
-import {ReactiveFormsModule, FormBuilder, Validators} from '@angular/forms';
-import {FormControl, FormGroup} from '@angular/forms';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { NavbarComponent } from '../../../shared/navbar/navbar.component';
+import { FooterComponent } from '../../../shared/footer/footer.component';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { LoginRequest } from '../login-request';
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { EMPTY, catchError } from 'rxjs';
-import { BasketItem } from '../../../basket/basket-item';
-import { BasketService } from '../../../basket/basket.service';
-
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent,ReactiveFormsModule,RouterLink, RouterLinkActive,CommonModule],
+  imports: [
+    NavbarComponent,
+    FooterComponent,
+    ReactiveFormsModule,
+    RouterLink,
+    RouterLinkActive,
+    CommonModule,
+  ],
   templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.css'
+  styleUrl: './login-page.component.css',
 })
-export class LoginPageComponent implements OnInit{
-
+export class LoginPageComponent implements OnInit {
   private formBuilder: FormBuilder = inject(FormBuilder);
   private authService: AuthService = inject(AuthService);
   private destroyRef: DestroyRef = inject(DestroyRef);
   public signInForm!: FormGroup;
-  public isFormValid:boolean = true;
-  public isFormSubmitted:boolean = false;
+  public isFormValid: boolean = true;
+  public isFormSubmitted: boolean = false;
 
   ngOnInit(): void {
     this.signInForm = this.formBuilder.group({
-      email: ['',[Validators.required, Validators.email]],
-      password: ['',[Validators.required]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     });
   }
- 
-  public onSubmit(){
 
+  public onSubmit() {
     this.isFormSubmitted = true;
 
-    if(!this.signInForm.valid){
+    if (!this.signInForm.valid) {
       this.isFormValid = false;
       return;
     }
-    this.authService.login(this.signInForm.value as LoginRequest)
-    .pipe(
-      catchError(()=>{
-        this.isFormValid = false;
-        return EMPTY;
-      }
-      ),
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe(()=>
-      this.isFormValid = true
-    );
+    this.authService
+      .login(this.signInForm.value as LoginRequest)
+      .pipe(
+        catchError(() => {
+          this.isFormValid = false;
+          return EMPTY;
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => (this.isFormValid = true));
   }
-
 }

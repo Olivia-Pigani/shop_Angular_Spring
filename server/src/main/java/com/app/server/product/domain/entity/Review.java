@@ -13,21 +13,21 @@ import lombok.*;
 @Table(name = "review")
 public class Review {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private String title;
+  private String title;
 
-    private String description;
+  private String description;
 
-    private int rating;
+  private int rating;
 
-    @ManyToOne
-    @JoinColumn(name = "id_customer", nullable = false)
-    private Customer customer;
+  @ManyToOne
+  @JoinColumn(name = "id_customer", nullable = false)
+  private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "id_product",nullable = false)
-    private Product product;
+  @ManyToOne
+  @JoinColumn(name = "id_product", nullable = false)
+  private Product product;
 }

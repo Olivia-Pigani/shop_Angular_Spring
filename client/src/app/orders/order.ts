@@ -1,7 +1,6 @@
 import { Orderline } from './orderline';
 
 export interface Order {
-
   totalAmount: number;
 
   tax: number;
@@ -9,5 +8,4 @@ export interface Order {
   deliveryPrice: number;
 
   orderLineRequestDtoList: Orderline[];
-  
 }

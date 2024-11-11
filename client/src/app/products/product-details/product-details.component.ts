@@ -1,15 +1,8 @@
-import {
-  Component,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { Product } from '../product';
-import { HttpClient } from '@angular/common/http';
 import { EMPTY, Subscription, catchError, tap } from 'rxjs';
 import { ProductService } from '../product.service';
 import { CommonModule } from '@angular/common';
@@ -27,7 +20,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
     ReviewCardComponent,
     FooterComponent,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
@@ -42,7 +35,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   private sub!: Subscription;
 
   public quantity: FormControl<number> = new FormControl(1, {
-    validators: [Validators.required,Validators.min(1)],
+    validators: [Validators.required, Validators.min(1)],
     nonNullable: true,
   });
 
@@ -70,7 +63,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   public addToBasket(product: Product) {
-    console.log(this.quantity.value, product)
+    console.log(this.quantity.value, product);
     this.basketService.addToBasket(product, this.quantity.value);
   }
 }

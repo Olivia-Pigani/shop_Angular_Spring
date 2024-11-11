@@ -7,8 +7,11 @@ public record OrderLineResponseDto(
 
   Long productId,
 
-  double quantity
+  String productName,
 
+  double productUnitPrice,
+
+  double quantity
 
 ) {
 }

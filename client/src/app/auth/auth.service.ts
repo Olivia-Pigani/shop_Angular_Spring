@@ -6,10 +6,9 @@ import {
   WritableSignal,
   Signal,
 } from '@angular/core';
-import { HttpClient, HttpContext } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from './user.interface';
 import { LoginRequest } from './login/login-request';
 import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
@@ -18,8 +17,6 @@ import { HttpStatusCode } from '@angular/common/http';
 import { SignUpRequest } from './signup/sign-up-request';
 import { BasketItem } from '../basket/basket-item';
 import { BasketService } from '../basket/basket.service';
-import { OrderService } from '../orders/order.service';
-import { AddressService } from '../customer/address.service';
 
 @Injectable({
   providedIn: 'root',
@@ -71,7 +68,7 @@ export class AuthService {
                 window.location.reload();
               });
             } else {
-              this.router.navigate(['/homepage']).then(()=>{
+              this.router.navigate(['/homepage']).then(() => {
                 window.location.reload();
               });
             }

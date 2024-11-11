@@ -1,29 +1,30 @@
-import { Component, Input, OnInit, Signal, computed, effect, inject } from '@angular/core';
+import { Component, Input, Signal, computed, inject } from '@angular/core';
 import { BasketItem } from '../basket-item';
 import { BasketService } from '../basket.service';
 import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgModel,FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-basket-item',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './basket-item.component.html',
-  styleUrl: './basket-item.component.css'
+  styleUrl: './basket-item.component.css',
 })
-export class BasketItemComponent{
-private basketService:BasketService = inject(BasketService);
-@Input() basketItem!:BasketItem;
-@Input() index!:number;
+export class BasketItemComponent {
+  private basketService: BasketService = inject(BasketService);
+  @Input() basketItem!: BasketItem;
+  @Input() index!: number;
 
-totalItemPrice:Signal<number> = computed(()=>this.basketItem.product.price * this.basketItem.quantity)
+  totalItemPrice: Signal<number> = computed(
+    () => this.basketItem.product.price * this.basketItem.quantity
+  );
 
-public onQuantitySelected(quantity:number):void{
-this.basketService.updateItemQuantity(this.basketItem,quantity)
-}
+  public onQuantitySelected(quantity: number): void {
+    this.basketService.updateItemQuantity(this.basketItem, quantity);
+  }
 
-public removeItem():void{
-this.basketService.removeToBasket(this.index)
-}
+  public removeItem(): void {
+    this.basketService.removeToBasket(this.index);
+  }
 }

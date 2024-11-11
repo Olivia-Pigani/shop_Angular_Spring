@@ -1,13 +1,11 @@
 export interface Customer {
+  firstName: string;
 
-firstName:string,
+  lastName: string;
 
-lastName:string,
+  birthDate: Date;
 
-birthDate:Date,
+  phoneNumber: string;
 
-phoneNumber:string,
-
-email:string
-
+  email: string;
 }

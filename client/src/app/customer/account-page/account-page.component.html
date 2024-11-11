@@ -1,85 +1,187 @@
 <app-navbar></app-navbar>
 
-
-
 <div class="container">
-    <h1 class="text-center my-4">{{pageTitle}}</h1>
-  
-    <h2 class="my-4 text-decoration-underline">My profil</h2>
-  
-    <!------------------------------------------------------------------------------CUSTOMER FORM---------------------------------------------------------------------------->
-    <form class="my-4" [formGroup]="customerInfoForm" (ngSubmit)="onSubmitCustomerInfo()">
-        <h3>General informations</h3>
+  <h1 class="text-center my-4">{{ pageTitle }}</h1>
 
-        <div *ngIf="isCustomerFormValid && isCustomerFormSubmitted" class=" my-2 alert alert-success alert-dismissible fade show d-flex justify-content-center align-items-center" role="alert">
-          General informations has been changed correctly !
-          <button (click)="closeCustomerFormSuccessMsg()" type="button" class="close btn btn-outline-infos" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+  <h2 class="my-4 text-decoration-underline">My profil</h2>
 
+  <!------------------------------------------------------------------------------CUSTOMER FORM---------------------------------------------------------------------------->
+  <form
+    class="my-4"
+    [formGroup]="customerInfoForm"
+    (ngSubmit)="onSubmitCustomerInfo()"
+  >
+    <h3>General informations</h3>
 
-      <div class="row my-3">
-        <div class="form-group col-md-6">
-          <label for="firstName">First name</label>
-          <input type="text" class="form-control" id="firstName" formControlName="firstName" >
-          <div *ngIf="!isCustomerFormValid && customerInfoForm && customerInfoForm.controls['firstName'].invalid" class=" my-2 text-danger">
-            <div *ngIf="customerInfoForm.controls['firstName'].errors?.['required']">First name is required.</div>
-            <div *ngIf="customerInfoForm.controls['firstName'].errors?.['minlength']">First name must contain at least 1 character</div>
+    <div
+      *ngIf="isCustomerFormValid && isCustomerFormSubmitted"
+      class="my-2 alert alert-success alert-dismissible fade show d-flex justify-content-center align-items-center"
+      role="alert"
+    >
+      General informations has been changed correctly !
+      <button
+        (click)="closeCustomerFormSuccessMsg()"
+        type="button"
+        class="close btn btn-outline-infos"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="row my-3">
+      <div class="form-group col-md-6">
+        <label for="firstName">First name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          formControlName="firstName"
+        />
+        <div
+          *ngIf="
+            !isCustomerFormValid &&
+            customerInfoForm &&
+            customerInfoForm.controls['firstName'].invalid
+          "
+          class="my-2 text-danger"
+        >
+          <div
+            *ngIf="customerInfoForm.controls['firstName'].errors?.['required']"
+          >
+            First name is required.
           </div>
-        </div>
-        <div class="form-group col-md-6">
-          <label for="lastName">Last name</label>
-          <input type="text" class="form-control" id="lastName" formControlName="lastName" >
-          <div *ngIf="!isCustomerFormValid && customerInfoForm && customerInfoForm.controls['lastName'].invalid" class=" my-2 text-danger">
-            <div *ngIf="customerInfoForm.controls['lastName'].errors?.['required']">Last name is required.</div>
-            <div *ngIf="customerInfoForm.controls['lastName'].errors?.['minlength']">Last name must contain at least 1 character</div>
-          </div>
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="form-group col-md-6">
-          <label for="birthDate">Birth date</label>
-          <input type="date" class="form-control" id="birthDate" formControlName="birthDate">
-          <div *ngIf="!isCustomerFormValid && customerInfoForm && customerInfoForm.controls['birthDate'].invalid" class=" my-2 text-danger">
-            <div *ngIf="customerInfoForm.controls['birthDate'].errors?.['required']">Birth date is required.</div>
-          </div>
-        </div>
-        <div class="form-group col-md-6">
-          <label for="phoneNumber">Phone number</label>
-          <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber">
-          <div *ngIf="!isCustomerFormValid && customerInfoForm && customerInfoForm.controls['phoneNumber'].invalid" class=" my-2 text-danger">
-            <div *ngIf="customerInfoForm.controls['phoneNumber'].errors?.['required']">Phone number is required.</div>
-            <div *ngIf="customerInfoForm.controls['phoneNumber'].errors?.['minlength']">Phone number must contain 10 numbers.</div>
-          </div>
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="form-group col-md-6">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" formControlName="email">
-          <div *ngIf="!isCustomerFormValid && customerInfoForm && customerInfoForm.controls['email'].invalid" class=" my-2 text-danger">
-            <div *ngIf="customerInfoForm.controls['email'].errors?.['required']">Email is required.</div>
-            <div *ngIf="customerInfoForm.controls['email'].errors?.['email']">That is not a correct email.</div>
+          <div
+            *ngIf="customerInfoForm.controls['firstName'].errors?.['minlength']"
+          >
+            First name must contain at least 1 character
           </div>
         </div>
       </div>
-
-      <div class="justify-content-end mt-4 d-flex">
-      <button type="submit" class="btn btn-warning" [disabled]="!customerInfoForm.touched || !customerInfoForm.dirty">Update</button>
-
+      <div class="form-group col-md-6">
+        <label for="lastName">Last name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          formControlName="lastName"
+        />
+        <div
+          *ngIf="
+            !isCustomerFormValid &&
+            customerInfoForm &&
+            customerInfoForm.controls['lastName'].invalid
+          "
+          class="my-2 text-danger"
+        >
+          <div
+            *ngIf="customerInfoForm.controls['lastName'].errors?.['required']"
+          >
+            Last name is required.
+          </div>
+          <div
+            *ngIf="customerInfoForm.controls['lastName'].errors?.['minlength']"
+          >
+            Last name must contain at least 1 character
+          </div>
+        </div>
       </div>
-    </form>
+    </div>
+    <div class="row my-3">
+      <div class="form-group col-md-6">
+        <label for="birthDate">Birth date</label>
+        <input
+          type="date"
+          class="form-control"
+          id="birthDate"
+          formControlName="birthDate"
+        />
+        <div
+          *ngIf="
+            !isCustomerFormValid &&
+            customerInfoForm &&
+            customerInfoForm.controls['birthDate'].invalid
+          "
+          class="my-2 text-danger"
+        >
+          <div
+            *ngIf="customerInfoForm.controls['birthDate'].errors?.['required']"
+          >
+            Birth date is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="phoneNumber">Phone number</label>
+        <input
+          type="text"
+          class="form-control"
+          id="phoneNumber"
+          formControlName="phoneNumber"
+        />
+        <div
+          *ngIf="
+            !isCustomerFormValid &&
+            customerInfoForm &&
+            customerInfoForm.controls['phoneNumber'].invalid
+          "
+          class="my-2 text-danger"
+        >
+          <div
+            *ngIf="customerInfoForm.controls['phoneNumber'].errors?.['required']"
+          >
+            Phone number is required.
+          </div>
+          <div
+            *ngIf="customerInfoForm.controls['phoneNumber'].errors?.['minlength']"
+          >
+            Phone number must contain 10 numbers.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row my-3">
+      <div class="form-group col-md-6">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+        />
+        <div
+          *ngIf="
+            !isCustomerFormValid &&
+            customerInfoForm &&
+            customerInfoForm.controls['email'].invalid
+          "
+          class="my-2 text-danger"
+        >
+          <div *ngIf="customerInfoForm.controls['email'].errors?.['required']">
+            Email is required.
+          </div>
+          <div *ngIf="customerInfoForm.controls['email'].errors?.['email']">
+            That is not a correct email.
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <div class="justify-content-end mt-4 d-flex">
+      <button
+        type="submit"
+        class="btn btn-warning"
+        [disabled]="!customerInfoForm.touched || !customerInfoForm.dirty"
+      >
+        Update
+      </button>
+    </div>
+  </form>
+  <!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
   <app-address-form></app-address-form>
-      
-      <app-order-list></app-order-list>
 
+  <app-order-list></app-order-list>
 </div>
-
-
-
-
-
 
 <app-footer></app-footer>

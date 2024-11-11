@@ -40,8 +40,8 @@ public class ProductService {
 
     Optional<Category> categoryOpt = categoryRepository.findById(productRequestDto.categoryId());
 
-    if (categoryOpt.isEmpty()){
-      throw new CustomCategoryException(CATEGORY_NOT_FOUND, String.format("the category %d do not exist in the database",productRequestDto.categoryId()));
+    if (categoryOpt.isEmpty()) {
+      throw new CustomCategoryException(CATEGORY_NOT_FOUND, String.format("the category %d do not exist in the database", productRequestDto.categoryId()));
     }
 
     Product newProduct = productRepository.save(ProductMapper.toProduct(productRequestDto));

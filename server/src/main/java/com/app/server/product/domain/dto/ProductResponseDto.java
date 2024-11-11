@@ -2,16 +2,16 @@ package com.app.server.product.domain.dto;
 
 public record ProductResponseDto(
 
-        Long id,
+  Long id,
 
-        String name,
+  String name,
 
-        String description,
+  String description,
 
-        String image,
+  String image,
 
-        double availableQuantity,
+  double availableQuantity,
 
-        double price
+  double price
 ) {
 }

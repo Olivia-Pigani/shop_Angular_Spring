@@ -1,5 +1,3 @@
 export interface LoginResponse {
-
-token?: string,
-
+  token?: string;
 }

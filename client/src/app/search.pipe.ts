@@ -7,16 +7,14 @@ import { Product } from './products/product';
 })
 export class SearchPipe implements PipeTransform {
   transform(productList: Product[], searchText: string): Product[] {
-
     if (!searchText) {
       return [];
     }
 
     const searchTextLowerCase = searchText.toLocaleLowerCase();
 
-    return productList.filter(product =>{
+    return productList.filter((product) => {
       return product.name.toLocaleLowerCase().includes(searchTextLowerCase);
-    } )
-   
+    });
   }
 }

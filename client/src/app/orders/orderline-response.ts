@@ -1,5 +1,4 @@
 export interface OrderlineResponse {
-
   productId: number;
 
   productName: string;
@@ -7,5 +6,4 @@ export interface OrderlineResponse {
   productUnitPrice: number;
 
   quantity: number;
-  
 }
