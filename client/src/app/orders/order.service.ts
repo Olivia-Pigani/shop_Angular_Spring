@@ -10,6 +10,7 @@ import { Order } from './order';
 import { BasketItem } from '../basket/basket-item';
 import { Orderline } from './orderline';
 import { BasketService } from '../basket/basket.service';
+import { OrderResponse } from './order-response';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class OrderService {
   private httpErrorService: HttpErrorService = inject(HttpErrorService);
   private basketService: BasketService = inject(BasketService);
   private ordersUrl: string = 'http://localhost:8586/api/v1/orders';
-  public orderList: WritableSignal<Order[]> = signal([]);
+  public orderList: WritableSignal<OrderResponse[]> = signal([]);
   public basketItemList:WritableSignal<BasketItem[]> = this.basketService.basketItemList;
 
   constructor(){
@@ -34,24 +35,19 @@ export class OrderService {
     console.log(this.orderList())
   })
 
-  public readonly allCustomerOrders$ = this.http.get<Order[]>(this.ordersUrl, {headers:this.header})
+  public readonly allCustomerOrders$ = this.http.get<OrderResponse[]>(this.ordersUrl, {headers:this.header})
   .pipe(
     catchError(err => 
       this.handleError(err)
     ));
 
-  public makeAnOrder(basketItemList: BasketItem[]): void{
-    const order: Order = this.prepareOrder(basketItemList);
+  public makeAnOrder(basketItemList: BasketItem[], tax:number, deliveryPrice:number): void{
+    const order: Order = this.prepareOrder(basketItemList,tax,deliveryPrice);
 
     this.http
-      .post<Order>(this.ordersUrl, order, { headers: this.header })
+      .post<OrderResponse>(this.ordersUrl, order, { headers: this.header })
       .pipe(
         catchError((err) => this.handleError(err)),
-        tap((order) => {
-          console.log('tap order :' + JSON.stringify(order))
-          console.log(this.ordersUrl)
-          console.log(this.header)
-        })
       )
       .subscribe((data) =>
        this.orderList.update((items) =>
@@ -62,7 +58,7 @@ export class OrderService {
         this.basketItemList.set([]);
   }
 
-  public prepareOrder(basketItemList: BasketItem[]) {
+  public prepareOrder(basketItemList: BasketItem[], tax:number, deliveryPrice:number) {
     const totalAmount: number = this.basketService.totalPrice();
 
     const orderLineList: Orderline[] = basketItemList.map((item) => ({
@@ -71,6 +67,8 @@ export class OrderService {
     }));
     const newOrder: Order = {
       totalAmount: totalAmount,
+      tax:tax,
+      deliveryPrice:deliveryPrice,
       orderLineRequestDtoList : orderLineList,
     };
     console.log("neworder : ", newOrder)

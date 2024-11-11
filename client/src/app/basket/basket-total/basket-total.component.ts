@@ -35,7 +35,7 @@ public onCheckoutSubmit():void{
   if(!this.isAddressVerified || !this.customerAddress()){
     return;
   }
-  this.orderService.makeAnOrder(this.basketItemList())
+  this.orderService.makeAnOrder(this.basketItemList(), this.tax(), this.deliveryFees())
   console.log("order has been made")
   this.isOrderHasBeenMade = true;
 }

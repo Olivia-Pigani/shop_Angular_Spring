@@ -18,10 +18,10 @@
                 ></i>
               </div>
               <div class="col-3">
-                <p class="text-dark fw-bolder">ref: xxxxx</p>
+                <p class="text-dark fw-bolder">ref: {{order.reference}}</p>
               </div>
               <div class="col-3">
-                <p class="text-dark fw-bolder">purchase date: xx/xx/xxxx</p>
+                <p class="text-dark fw-bolder">purchase date: {{order.orderDate}}</p>
               </div>
               <div class="col-3">
                 <p class="text-dark fw-bolder">total: {{order.totalAmount}}€</p>
@@ -48,17 +48,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">monitor</th>
-                <td>4</td>
-                <td>120€</td>
-                <td>480</td>
-              </tr>
-              <tr>
-                <th scope="row">watch</th>
-                <td>5</td>
-                <td>5€</td>
-                <td>25€</td>
+              <tr *ngFor="let orderline of order.orderLineResponseDtoList">
+                <th scope="row">{{orderline.productName}}</th>
+                <td>{{orderline.quantity}}</td>
+                <td>{{orderline.productUnitPrice}}€</td>
+                <td>{{orderline.quantity * orderline.productUnitPrice}}€</td>
               </tr>
             </tbody>
           </table>
@@ -74,23 +68,15 @@
               <tr>
                 <td>
                   <p><strong>Send to:</strong></p>
-                  <p>Ben Affleck</p>
-                  <p>Email: ben..com</p>
+                  <p>{{customer()?.firstName}} - {{customer()?.lastName}}</p>
+                  <p>Email: {{customer()?.email}}</p>
                 </td>
                 <td class="text-start">
-                  <p><strong>Total Amount:</strong> 150.00€</p>
-                  <p><strong>Tax:</strong> 5€</p>
-                  <p><strong>Delivery Price:</strong> 10€</p>
-                  <p><strong>Total Final:</strong> 165.00€</p>
+                  <p><strong>sub total:</strong> {{order.totalAmount - (order.taxAmount + order.deliveryPrice)}}€</p>
+                  <p><strong>tax:</strong>{{order.taxAmount}}€</p>
+                  <p><strong>delivery price:</strong> {{order.deliveryPrice}}€</p>
+                  <p><strong>total:</strong> {{order.totalAmount}}€</p>
                 </td>
-              </tr>
-              <tr>
-                <td>
-                  <p><strong>Postal Address:</strong></p>
-                  <p>123 Rue Exemple</p>
-                  <p>75000 Paris, France</p>
-                </td>
-                <td></td>
               </tr>
             </tbody>
           </table>
