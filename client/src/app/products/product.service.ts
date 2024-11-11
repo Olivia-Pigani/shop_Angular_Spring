@@ -14,7 +14,6 @@ export class ProductService {
   private httpErrorService:HttpErrorService = inject(HttpErrorService);
   private http: HttpClient = inject(HttpClient);
 
-
   readonly allProducts$: Observable<Product[]> = this.http.get<Product[]>(this.productsUrl)
   .pipe(
     catchError(err => 

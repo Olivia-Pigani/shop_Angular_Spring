@@ -4,6 +4,7 @@ import {
   DestroyRef,
   signal,
   WritableSignal,
+  Signal,
 } from '@angular/core';
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -16,6 +17,8 @@ import { LoginResponse } from './login/login-response';
 //import {IS_PUBLIC} from "./auth.interceptor";
 import { HttpStatusCode } from '@angular/common/http';
 import { SignUpRequest } from './signup/sign-up-request';
+import { BasketItem } from '../basket/basket-item';
+import { BasketService } from '../basket/basket.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,8 +27,12 @@ export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
   private readonly jwtHelper = inject(JwtHelperService);
+  private basketService: BasketService = inject(BasketService);
   private readonly destroyRef = inject(DestroyRef);
   private authUrl: string = 'http://localhost:8586/api/v1/auth';
+
+  public basketItemList: Signal<BasketItem[]> =
+    this.basketService.basketItemList.asReadonly();
 
   public get user(): WritableSignal<User | null> {
     const token = localStorage.getItem('token');
@@ -56,7 +63,13 @@ export class AuthService {
         tap((data) => {
           if (data.token) {
             localStorage.setItem('token', data.token);
-            this.router.navigate(['/homepage']);
+
+            //if there is at least one item in the basket, signin will lead the user to basket page to make the order
+            if (this.basketItemList().length) {
+              this.router.navigate(['/basket']);
+            } else {
+              this.router.navigate(['/homepage']);
+            }
           }
         })
       );

@@ -7,6 +7,7 @@ import { AddressService } from '../../customer/address.service';
 import { Address } from '../../customer/address';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { OrderService } from '../../orders/order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-basket-total',
@@ -19,10 +20,12 @@ export class BasketTotalComponent {
 private basketService: BasketService = inject(BasketService);
 private addressService:AddressService = inject(AddressService);
 private orderService:OrderService = inject(OrderService);
+private router:Router = inject(Router);
 public basketItemList:Signal<BasketItem[]> = this.basketService.basketItemList.asReadonly();
 public customerAddress: Signal<Address | undefined> = toSignal(
   this.addressService.addressDetails$
 );
+public customerToken:string | null = localStorage.getItem("token");
 public subTotal:Signal<number> = this.basketService.subTotal;
 public tax:Signal<number> = this.basketService.TAX;
 public deliveryFees:Signal<number> = this.basketService.deliveryFees;
@@ -32,9 +35,16 @@ public isAddressVerified: boolean = false;
 public isOrderHasBeenMade: boolean = false;
 
 public onCheckoutSubmit():void{
+
+  // if not authentified : go to sign in page
+  if(!this.customerToken){
+    this.router.navigate(['/auth/signin'])
+  }
+
   if(!this.isAddressVerified || !this.customerAddress()){
     return;
   }
+  
   this.orderService.makeAnOrder(this.basketItemList(), this.tax(), this.deliveryFees())
   console.log("order has been made")
   this.isOrderHasBeenMade = true;

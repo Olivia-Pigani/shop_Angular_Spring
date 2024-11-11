@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit, effect, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, Signal, effect, inject } from '@angular/core';
 import { NavbarComponent } from "../../../shared/navbar/navbar.component";
 import { FooterComponent } from "../../../shared/footer/footer.component";
 import {ReactiveFormsModule, FormBuilder, Validators} from '@angular/forms';
@@ -9,6 +9,8 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { EMPTY, catchError } from 'rxjs';
+import { BasketItem } from '../../../basket/basket-item';
+import { BasketService } from '../../../basket/basket.service';
 
 
 @Component({
