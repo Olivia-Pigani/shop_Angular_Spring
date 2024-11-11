@@ -14,11 +14,12 @@ import { User } from './user.interface';
 import { LoginRequest } from './login/login-request';
 import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
 import { LoginResponse } from './login/login-response';
-//import {IS_PUBLIC} from "./auth.interceptor";
 import { HttpStatusCode } from '@angular/common/http';
 import { SignUpRequest } from './signup/sign-up-request';
 import { BasketItem } from '../basket/basket-item';
 import { BasketService } from '../basket/basket.service';
+import { OrderService } from '../orders/order.service';
+import { AddressService } from '../customer/address.service';
 
 @Injectable({
   providedIn: 'root',
@@ -66,9 +67,13 @@ export class AuthService {
 
             //if there is at least one item in the basket, signin will lead the user to basket page to make the order
             if (this.basketItemList().length) {
-              this.router.navigate(['/basket']);
+              this.router.navigate(['/basket']).then(() => {
+                window.location.reload();
+              });
             } else {
-              this.router.navigate(['/homepage']);
+              this.router.navigate(['/homepage']).then(()=>{
+                window.location.reload();
+              });
             }
           }
         })

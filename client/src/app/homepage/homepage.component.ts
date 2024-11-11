@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { ProductListComponent } from "../products/product-list/product-list.component";
 import { FooterComponent } from "../shared/footer/footer.component";
+import { CustomerService } from '../customer/customer.service';
+import { Customer } from '../customer/customer';
 
 @Component({
   selector: 'app-homepage',
@@ -11,5 +13,4 @@ import { FooterComponent } from "../shared/footer/footer.component";
   styleUrl: './homepage.component.css'
 })
 export class HomepageComponent {
-
 }

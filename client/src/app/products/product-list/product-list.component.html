@@ -2,7 +2,7 @@
 
   <h1>{{pageTitle}}</h1>
 
-<ng-container *ngIf="productList$ | async as productList ; else errorPrinter">
+<ng-container *ngIf="productList$ | async as productList ; else waitingPrinter">
   <div class="row">
     <app-product-card
       *ngFor="let product of productList"
@@ -12,9 +12,10 @@
   </div>
 </ng-container>
 
-<ng-template #errorPrinter>
-  <div class="alert alert-danger my-4 text-center" role="alert">
-  <p>{{errorMessage}}</p>
+<ng-template #waitingPrinter>
+  <div class="text-center vh-100">
+    <div class="spinner-border" role="status">
+    </div>
   </div>
 </ng-template>
 
