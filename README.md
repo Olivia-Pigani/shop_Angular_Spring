@@ -1,10 +1,10 @@
 # TechShop (Work in progress)
 
-<img src="src/main/resources/homepage.png" alt="homepage view">
+<img src="./server/src/main/resources/homepage.png" alt="homepage view">
 
 <hr>
 
-<img src="src/main/resources/basket.png" alt="basket view">
+<img src="./server/src/main/resources/basket.png" alt="basket view">
 
 <hr>
 
