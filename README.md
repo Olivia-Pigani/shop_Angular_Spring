@@ -1,5 +1,13 @@
 # TechShop (Work in progress)
 
+<img src="src/main/resources/homepage.png" alt="homepage view">
+
+<hr>
+
+<img src="src/main/resources/basket.png" alt="basket view">
+
+<hr>
+
 ## How to run this project ?
 
 ### 1. git clone the project
