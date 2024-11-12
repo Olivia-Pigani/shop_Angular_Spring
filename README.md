@@ -16,9 +16,8 @@ PGADMIN_DEFAULT_EMAIL=<?>
 PGADMIN_DEFAULT_PASSWORD=<?>
 PGADMIN_PORT=80
 
-SERVER_PORT=<?>
-
-JWT_SECRET_KEY=<?>
+-- please put a HMAC256 secret type --
+JWT_SECRET_KEY=<?> 
 ```
 
 ### 3. Run "docker compose up -d" at the docker-compose.yml location file
