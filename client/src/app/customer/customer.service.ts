@@ -13,7 +13,7 @@ import { HttpErrorService } from '../utils/http-error.service';
   providedIn: 'root',
 })
 export class CustomerService {
-  private customerBaseUrl: string = `http://localhost:8586/api/v1/customers`;
+  private customerBaseUrl: string = `http://localhost:8482/api/v1/customers`;
   private httpErrorService: HttpErrorService = inject(HttpErrorService);
   private jwtHelper: JwtHelperService = inject(JwtHelperService);
   private http: HttpClient = inject(HttpClient);

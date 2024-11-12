@@ -26,7 +26,7 @@ export class OrderService {
   private http: HttpClient = inject(HttpClient);
   private httpErrorService: HttpErrorService = inject(HttpErrorService);
   private basketService: BasketService = inject(BasketService);
-  private ordersUrl: string = 'http://localhost:8586/api/v1/orders';
+  private ordersUrl: string = 'http://localhost:8482/api/v1/orders';
   public orderList: WritableSignal<OrderResponse[]> = signal([]);
   public basketItemList: WritableSignal<BasketItem[]> =
     this.basketService.basketItemList;

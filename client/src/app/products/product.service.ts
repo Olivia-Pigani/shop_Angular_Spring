@@ -9,7 +9,7 @@ import { Review } from '../reviews/review';
   providedIn: 'root',
 })
 export class ProductService {
-  private productsUrl: string = 'http://localhost:8586/api/v1/products';
+  private productsUrl: string = 'http://localhost:8482/api/v1/products';
   private httpErrorService: HttpErrorService = inject(HttpErrorService);
   private http: HttpClient = inject(HttpClient);
 

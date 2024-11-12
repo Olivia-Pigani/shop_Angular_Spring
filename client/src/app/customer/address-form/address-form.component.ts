@@ -5,6 +5,7 @@ import {
   EffectRef,
   OnInit,
   Signal,
+  WritableSignal,
   effect,
   inject,
 } from '@angular/core';
@@ -31,10 +32,8 @@ export class AddressFormComponent implements OnInit {
   private addressService: AddressService = inject(AddressService);
   private destroyRef: DestroyRef = inject(DestroyRef);
 
-  public address: Signal<Address | undefined> = toSignal(
-    this.addressService.addressDetails$
-  );
-
+  public address: WritableSignal<Address> = this.addressService.customerAddress;
+  
   public addressInfoForm!: FormGroup;
   public initialAddressData: Address | undefined;
   public isAddressFormValid: boolean = true;
@@ -83,6 +82,7 @@ export class AddressFormComponent implements OnInit {
           this.isAddressFormValid = true;
           this.isAddressFormSubmitted = true;
         });
+        
       return;
     }
 

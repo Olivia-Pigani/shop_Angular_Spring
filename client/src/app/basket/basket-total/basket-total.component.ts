@@ -1,11 +1,16 @@
-import { Component, Signal, inject } from '@angular/core';
+import {
+  Component,
+  Signal,
+  WritableSignal,
+  effect,
+  inject,
+} from '@angular/core';
 import { BasketService } from '../basket.service';
 import { CommonModule } from '@angular/common';
 import { BasketItem } from '../basket-item';
 import { AddressFormComponent } from '../../customer/address-form/address-form.component';
 import { AddressService } from '../../customer/address.service';
 import { Address } from '../../customer/address';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { OrderService } from '../../orders/order.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
@@ -23,11 +28,11 @@ export class BasketTotalComponent {
   private orderService: OrderService = inject(OrderService);
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
+
   public basketItemList: Signal<BasketItem[]> =
     this.basketService.basketItemList.asReadonly();
-  public customerAddress: Signal<Address | undefined> = toSignal(
-    this.addressService.addressDetails$
-  );
+  public customerAddress: WritableSignal<Address> =
+    this.addressService.customerAddress;
   public customerToken: Signal<boolean> =
     this.authService.isLoggedIn.asReadonly();
   public subTotal: Signal<number> = this.basketService.subTotal;
@@ -38,26 +43,29 @@ export class BasketTotalComponent {
   public isAddressVerified: boolean = false;
   public isOrderHasBeenMade: boolean = false;
 
+  e = effect(() => {
+    console.log(this.customerAddress());
+  });
+
   public onCheckoutSubmit(): void {
     // if not authentified : go to sign in page
     if (!this.customerToken()) {
       this.router.navigate(['/auth/signin']);
     }
 
-    if (!this.isAddressVerified || !this.customerAddress()) {
+    if (!this.isAddressVerified || !this.customerAddress() || this.showAddressForm) {
       return;
     }
 
-    this.orderService.makeAnOrder(
-      this.basketItemList(),
-      this.tax(),
-      this.deliveryFees()
-    );
+    this.orderService.makeAnOrder(this.basketItemList(),this.tax(),this.deliveryFees());
     console.log('order has been made');
     this.isOrderHasBeenMade = true;
   }
 
   public isAddressVerifiedChangeStatus(): void {
+    if (!this.customerAddress()) {
+      return;
+    }
     this.isAddressVerified = !this.isAddressVerified;
 
     if (this.isAddressVerified) {

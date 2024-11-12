@@ -27,7 +27,7 @@ export class AuthService {
   private readonly jwtHelper = inject(JwtHelperService);
   private basketService: BasketService = inject(BasketService);
   private readonly destroyRef = inject(DestroyRef);
-  private authUrl: string = 'http://localhost:8586/api/v1/auth';
+  private authUrl: string = 'http://localhost:8482/api/v1/auth';
 
   public basketItemList: Signal<BasketItem[]> =
     this.basketService.basketItemList.asReadonly();
