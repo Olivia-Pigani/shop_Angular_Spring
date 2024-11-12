@@ -20,4 +20,10 @@ PGADMIN_PORT=80
 JWT_SECRET_KEY=<?> 
 ```
 
-### 3. Run "docker compose up -d" at the docker-compose.yml location file
+### 3. Run "docker compose up build -d" at the docker-compose.yml location file
+
+### 4. Connect PgAdmin with a new server (put ipv4 info for network, then admin and password that you put in .env)
+
+### 5. open client in a IDE, run "npm i" then "npm start"
+
+### 6. open server in an other IDE, execute the code.
