@@ -24,7 +24,7 @@ PGADMIN_DEFAULT_EMAIL=<?>
 PGADMIN_DEFAULT_PASSWORD=<?>
 PGADMIN_PORT=80
 
--- please put a HMAC256 secret type --
+# please put a HMAC256 secret type 
 JWT_SECRET_KEY=<?> 
 ```
 
