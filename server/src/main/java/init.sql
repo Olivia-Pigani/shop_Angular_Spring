@@ -105,7 +105,7 @@ VALUES ('ROLE_CUSTOMER'),
 
 INSERT INTO customer (first_name, last_name, birth_date, phone_number, email, password, created_at, updated_at, id_role, id_address)
 VALUES ('Deborah', 'Kane', '1990-05-15', '0123456789', 'deborah.kane@email.com', '12345678', CURRENT_DATE, CURRENT_DATE, 1, 1),
-       ('Jane','Do','2000-10-10','0600000000','admin@email.com','12345678',CURRENT_DATE, CURRENT_DATE, 2, null),
+       ('Jane','Do','2000-10-10','0600000000','janedo@email.com','12345678',CURRENT_DATE, CURRENT_DATE, 1, null),
        ('Jean-François', 'Cotté', '1965-08-22', '0987654321', 'jean.cotte@email.com', '12345678', CURRENT_DATE, CURRENT_DATE, 1, 2),
        ('Kim', 'Yoon', '1992-01-03', '0147852369', 'kim.yoon@email.com', '12345678', CURRENT_DATE, CURRENT_DATE, 1, null),
        ('Ben', 'Alleck', '1980-11-10', '0145792638', 'ben.alleck@email.com', '12345678', CURRENT_DATE, CURRENT_DATE, 1, 4),
