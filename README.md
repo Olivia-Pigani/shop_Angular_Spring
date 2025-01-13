@@ -32,6 +32,6 @@ JWT_SECRET_KEY=<?>
 
 ### 4. Connect PgAdmin with a new server (put ipv4 info for network, then admin and password that you put in .env)
 
-### 5. open client in a IDE, run "npm i" then "npm start"
+### 5. open client in Vs code, run "npm i" then "npm start"
 
-### 6. open server in an other IDE, execute the code.
+### 6. open server in an IDE, execute the code.
