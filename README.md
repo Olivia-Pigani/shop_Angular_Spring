@@ -1,4 +1,4 @@
-# TechShop (Work in progress)
+# TechShop
 
 <img src="./server/src/main/resources/homepage.png" alt="homepage view">
 
